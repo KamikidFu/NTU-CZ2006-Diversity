@@ -1,4 +1,4 @@
-package com.example.kamikid_yoga.diversity;
+package com.example.johny.tabtry;
 
 import org.junit.Test;
 
