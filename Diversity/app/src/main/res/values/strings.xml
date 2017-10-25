@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">Diversity</string>
-    <string name="title_activity_main_maps">MainMap</string>
+    <string name="app_name">Boom</string>
+    <string name="action_user">User</string>
+    <string name="action_map">Map</string>
+    <string name="action_list">List</string>
+    <string name="action_jobs">Jobs</string>
+
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
