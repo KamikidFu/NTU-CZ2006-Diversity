@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "202863705782",
+    "firebase_url": "https://boomapp-183610.firebaseio.com",
+    "project_id": "boomapp-183610",
+    "storage_bucket": "boomapp-183610.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202863705782:android:6e60686757d0b82a",
+        "android_client_info": {
+          "package_name": "com.example.johny.boomapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202863705782-26ud29a0r2cai6bjsvk4jc36aeen2h2r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.johny.boomapp",
+            "certificate_hash": "4cf4e576b29dc6eb44dbb982fa4ba1a8001e2331"
+          }
+        },
+        {
+          "client_id": "202863705782-6ipi4vj796bgp7mcvjs1d3453nis0u6r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9pYQNPI2T16TsfetlJqDpnE8P6ssZhmg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202863705782-6ipi4vj796bgp7mcvjs1d3453nis0u6r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
