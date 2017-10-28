@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WeVo</string>
+    <string name="action_user">User</string>
+    <string name="action_map">Map</string>
+    <string name="action_list">List</string>
+    <string name="action_jobs">Jobs</string>
+</resources>
