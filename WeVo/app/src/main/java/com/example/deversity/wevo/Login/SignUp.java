@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.deversity.wevo.MainActivity;
+import com.example.deversity.wevo.ui.MainActivity;
 import com.example.deversity.wevo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
