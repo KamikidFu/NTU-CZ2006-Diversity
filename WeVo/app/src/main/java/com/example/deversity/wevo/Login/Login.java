@@ -49,7 +49,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 if (firebaseAuth.getCurrentUser() != null ) {
-                    startActivity( new Intent( Login.this, com.example.deversity.wevo.ui.MainActivity.class));
+                    startActivity( new Intent( Login.this, com.example.deversity.wevo.ui.EventCreator.class));
                 }
             }
         };
@@ -93,7 +93,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             //user is successfully registered and logged in
                             finish();
-                            startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.EventCreator.class));
                         } else {
                             Toast.makeText(Login.this, "Log In Failed", Toast.LENGTH_SHORT).show();
                         }
