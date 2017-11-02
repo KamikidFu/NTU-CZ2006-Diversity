@@ -1,10 +1,8 @@
 package com.example.deversity.wevo.Login;
 
-import android.Manifest;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,15 +13,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.deversity.wevo.ui.MainActivity;
 import com.example.deversity.wevo.R;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Combined boundary and control class for login
+ */
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonLogin;
@@ -36,7 +34,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     private final static int PERMISSION_FINE_LOCATION = 101;
-    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +46,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 if (firebaseAuth.getCurrentUser() != null ) {
-                    startActivity( new Intent( Login.this, com.example.deversity.wevo.ui.EventCreator.class));
+                    startActivity( new Intent( Login.this, com.example.deversity.wevo.ui.VolunteerView.class));
                 }
             }
         };
@@ -93,7 +90,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             //user is successfully registered and logged in
                             finish();
-                            startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.EventCreator.class));
+                            startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class));
                         } else {
                             Toast.makeText(Login.this, "Log In Failed", Toast.LENGTH_SHORT).show();
                         }
@@ -119,19 +116,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case PERMISSION_FINE_LOCATION:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        mMap.setMyLocationEnabled(true);
-                    }
-                }else{
-                    Toast.makeText(Login.this,"This app requires location permissions!",Toast.LENGTH_LONG).show();
-                }
-                break;
-        }
-    }
+
 }

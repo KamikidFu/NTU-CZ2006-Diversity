@@ -1,8 +1,5 @@
 package com.example.deversity.wevo.ui;
 
-/**
- * Created by johny on 21/10/2017.
- */
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,11 +8,15 @@ import android.view.ViewGroup;
 
 import com.example.deversity.wevo.R;
 
-public class userTab extends Fragment {
+/**
+ * UserTab is a boundary class for showing volunteer information
+ * @author John;
+ */
+public class UserTab extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.user_tab, container, false);
+        View rootView = inflater.inflate(R.layout.activity_usertab, container, false);
         return rootView;
     }
 

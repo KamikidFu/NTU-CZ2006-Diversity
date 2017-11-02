@@ -12,14 +12,14 @@ import android.widget.ListView;
 import com.example.deversity.wevo.R;
 
 
-public class listTab extends Fragment{
+public class ListTab extends Fragment{
     private View mView;
     private String[] placeholdVWO = {"VWO1", "VWO2", "VWO3","VWO4","VWO5"};
     private ListView vwoListView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        mView = inflater.inflate(R.layout.list_tab, container, false);
+        mView = inflater.inflate(R.layout.activity_listtab, container, false);
         return mView;
     }
     @Override

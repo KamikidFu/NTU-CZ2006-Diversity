@@ -11,8 +11,11 @@ import android.widget.ListView;
 
 import com.example.deversity.wevo.R;
 
-
-public class jobTab extends Fragment {
+/**
+ * JobTab is a boundary class for showing volunteer applied jobs
+ * @author John;
+ */
+public class JobTab extends Fragment {
 
     private View mView;
     private String[] placeholdJOB = {"JOB1", "JOB2", "JOB3","JOB4","JOB5","JOB6"};
@@ -21,7 +24,7 @@ public class jobTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.job_tab, container, false);
+        mView = inflater.inflate(R.layout.activity_jobtab, container, false);
         return mView;
     }
     @Override

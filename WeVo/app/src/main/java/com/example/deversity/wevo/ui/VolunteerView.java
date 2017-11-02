@@ -12,7 +12,11 @@ import android.view.MenuItem;
 
 import com.example.deversity.wevo.R;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * VolunteerView is a boundary class that contains four tab fragments
+ * @author John;
+ */
+public class VolunteerView extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_volunteerview);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -87,16 +91,16 @@ public class MainActivity extends AppCompatActivity {
             //returning the current tabs
             switch (position) {
                 case 0 :
-                    mapTab mapTab = new mapTab();
+                    MapTab mapTab = new MapTab();
                     return mapTab;
                 case 1 :
-                    listTab listTab = new listTab();
+                    ListTab listTab = new ListTab();
                     return listTab;
                 case 2 :
-                    jobTab jobTab = new jobTab();
+                    JobTab jobTab = new JobTab();
                     return jobTab;
                 case 3 :
-                    userTab userTab = new userTab();
+                    UserTab userTab = new UserTab();
                     return userTab;
                 default:
                     return null;

@@ -13,6 +13,10 @@ import android.widget.ListView;
 
 import com.example.deversity.wevo.R;
 
+/**
+ * VWOView is boundary class for VWO Client
+ * @author Teo;
+ */
 public class VWOView extends AppCompatActivity implements View.OnClickListener{
 
     private Button addEventButton;

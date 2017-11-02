@@ -4,10 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.deversity.wevo.R;
 
+/**
+ * EventCreator is a boundary class for creating event and showing event
+ * @author Teo
+ */
 public class EventCreator extends AppCompatActivity implements View.OnClickListener{
 
     private Button submitButton;
@@ -28,13 +31,13 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if(view == submitButton){
-            Toast.makeText(this, "You click on submit button", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "You click on submit button", Toast.LENGTH_LONG).show();
         }else if(view == discardButton){
-            Toast.makeText(this, "You click on discard button", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "You click on discard button", Toast.LENGTH_LONG).show();
         }else if(view == increaseButton){
-            Toast.makeText(this, "You click on increase button", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "You click on increase button", Toast.LENGTH_LONG).show();
         }else if(view == decreaseButton){
-            Toast.makeText(this, "You click on decrease button", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "You click on decrease button", Toast.LENGTH_LONG).show();
         }
     }
 }

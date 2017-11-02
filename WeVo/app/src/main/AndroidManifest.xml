@@ -19,7 +19,7 @@
         android:theme="@style/Theme.Design.Light">
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.VolunteerView"
             android:label="@string/app_name"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity android:name=".Login.Login">

@@ -13,16 +13,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.deversity.wevo.ui.MainActivity;
+import com.example.deversity.wevo.ui.VolunteerView;
 import com.example.deversity.wevo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 
+/**
+ * Combined boundary and control class for sign up
+ */
 public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonSignUp;
@@ -32,7 +33,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
     private ProgressBar progressBar;
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         if (firebaseAuth.getCurrentUser() != null ){
             //profile activity
             finish();
-            startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), VolunteerView.class));
 
         }
 
@@ -93,7 +93,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                             if (firebaseAuth.getCurrentUser() != null ){
                                 //profile activity
                                 finish();
-                                startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), VolunteerView.class));
                             }
                         } else {
                             FirebaseException e = (FirebaseException)task.getException();

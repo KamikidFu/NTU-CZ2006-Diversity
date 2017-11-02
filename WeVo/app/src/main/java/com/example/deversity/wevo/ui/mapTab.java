@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import android.widget.ZoomControls;
 
 import com.example.deversity.wevo.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,8 +22,11 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-
-public class mapTab extends Fragment implements OnMapReadyCallback {
+/**
+ * MapTab is a boundary class for showing VWOs on google map
+ * @author John; Fu, Yunhao
+ */
+public class MapTab extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private MapView mMapView;
     private View mView;
@@ -34,7 +36,7 @@ public class mapTab extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.map_tab, container, false);
+        mView = inflater.inflate(R.layout.activity_maptab, container, false);
         return mView;
     }
 
