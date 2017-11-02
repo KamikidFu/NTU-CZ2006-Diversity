@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
     private EditText editTextPassword;
     private TextView textViewSignIn;
     private ProgressBar progressBar;
+    private Switch switchType;
+    private String typeChoice = "volunteer";
 
     private FirebaseAuth firebaseAuth;
 
@@ -56,6 +60,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
 
+        switchType.setChecked(true);
         buttonSignUp.setOnClickListener(this);
         textViewSignIn.setOnClickListener(this);
     }
@@ -65,6 +70,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
+        if( switchType.isChecked()  ) typeChoice = "volunteer";
+        else typeChoice = "vwo";
+
+        email = email + typeChoice;
+        password = password + typeChoice;
         if(TextUtils.isEmpty(email)) {
             //email is empty
             Toast.makeText(this, "Please Enter Email", Toast.LENGTH_SHORT ).show();
