@@ -22,8 +22,7 @@ public class JobTab extends Fragment {
     private ListView jobListView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.activity_jobtab, container, false);
         return mView;
     }

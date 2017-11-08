@@ -16,6 +16,7 @@ public class ListTab extends Fragment{
     private View mView;
     private String[] placeholdVWO = {"VWO1", "VWO2", "VWO3","VWO4","VWO5"};
     private ListView vwoListView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
