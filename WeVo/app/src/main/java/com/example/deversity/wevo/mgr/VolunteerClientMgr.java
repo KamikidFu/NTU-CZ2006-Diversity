@@ -19,10 +19,10 @@ public class VolunteerClientMgr {
     private ShowVWOMgr VWOMgr;
 
     public void SetDescriptionUSER(String newDescription){
-        mRootRef.child("Volunteer").child("id").child(USER.getUid()).child("description").setValue(newDescription);
+        mRootRef.child("Vol").child("id").child(USER.getUid()).child("description").setValue(newDescription);
     }
     public void SetNameUSER(String newName) {
-        mRootRef.child("Volunteer").child("id").child(USER.getUid()).child("name").setValue(newName);
+        mRootRef.child("Vol").child("id").child(USER.getUid()).child("name").setValue(newName);
     }
 
     public void applyJob(){
