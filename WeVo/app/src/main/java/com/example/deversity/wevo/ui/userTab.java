@@ -40,6 +40,7 @@ public class userTab extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.activity_usertab, container, false);
         mButtonBriefModify = rootView.findViewById(R.id.buttonBriefModify);
         mButtonNameModify = rootView.findViewById(R.id.buttonNameModify);
@@ -48,8 +49,8 @@ public class userTab extends Fragment {
         mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                UserName = dataSnapshot.child("name").getValue(String.class);
-                UserDescription = dataSnapshot.child("description").getValue(String.class);
+                UserName = dataSnapshot.child("name").getValue().toString();
+                UserDescription = dataSnapshot.child("Description").getValue().toString();
                 mEditTextName.setText(UserName);
                 mEditTextBrief.setText(UserDescription);
             }
@@ -59,7 +60,6 @@ public class userTab extends Fragment {
 
             }
         });
-
         return rootView;
     }
 
