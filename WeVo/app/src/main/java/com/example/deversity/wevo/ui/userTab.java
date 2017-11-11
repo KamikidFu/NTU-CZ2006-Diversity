@@ -26,7 +26,7 @@ import com.example.deversity.wevo.R;
  * UserTab is a boundary class for showing volunteer information
  * @author John;
  */
-public class UserTab extends Fragment {
+public class userTab extends Fragment {
     FirebaseUser USER = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mUserRef = mRootRef.child("Volunteer").child(USER.getUid());

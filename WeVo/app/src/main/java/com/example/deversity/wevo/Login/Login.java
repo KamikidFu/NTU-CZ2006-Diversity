@@ -31,8 +31,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText editTextPassword;
     private TextView textViewSignUp;
     private ProgressBar progressBar;
-    private Switch switchType;
-    private String typeChoice = "volunteer";
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
@@ -62,9 +60,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
-        switchType = (Switch) findViewById(R.id.switchUserType);
-
-        switchType.setChecked(true);
         buttonLogin.setOnClickListener(this);
         textViewSignUp.setOnClickListener(this);
     }
@@ -72,10 +67,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        if( switchType.isChecked()  ) typeChoice = "volunteer";
-        else typeChoice = "vwo";
-        email = email + typeChoice;
-        password = password + typeChoice;
 
         if(TextUtils.isEmpty(email)) {
             //email is empty

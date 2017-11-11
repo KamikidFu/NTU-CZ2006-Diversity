@@ -26,7 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * MapTab is a boundary class for showing VWOs on google map
  * @author John; Fu, Yunhao
  */
-public class MapTab extends Fragment implements OnMapReadyCallback {
+public class mapTab extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private MapView mMapView;
     private View mView;

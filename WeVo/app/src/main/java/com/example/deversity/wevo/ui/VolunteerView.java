@@ -91,16 +91,16 @@ public class VolunteerView extends AppCompatActivity {
             //returning the current tabs
             switch (position) {
                 case 0 :
-                    MapTab mapTab = new MapTab();
+                    mapTab mapTab = new mapTab();
                     return mapTab;
                 case 1 :
-                    ListTab listTab = new ListTab();
+                    listTab listTab = new listTab();
                     return listTab;
                 case 2 :
-                    JobTab jobTab = new JobTab();
+                    jobTab jobTab = new jobTab();
                     return jobTab;
                 case 3 :
-                    UserTab userTab = new UserTab();
+                    userTab userTab = new userTab();
                     return userTab;
                 default:
                     return null;

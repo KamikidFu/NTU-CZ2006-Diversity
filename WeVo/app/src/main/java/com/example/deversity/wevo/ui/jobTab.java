@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * JobTab is a boundary class for showing volunteer applied jobs
  * @author John;
  */
-public class JobTab extends Fragment {
+public class jobTab extends Fragment {
 
     private View mView;
     private String[] placeholdJOB = {"JOB1", "JOB2", "JOB3","JOB4","JOB5","JOB6"};
