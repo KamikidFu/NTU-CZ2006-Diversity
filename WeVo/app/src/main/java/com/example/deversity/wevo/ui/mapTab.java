@@ -1,7 +1,6 @@
 package com.example.deversity.wevo.ui;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
@@ -45,20 +43,7 @@ public class mapTab extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Fixing Later Map loading Delay
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    mMapView = (MapView) mView.findViewById(R.id.mapView);
-                    mMapView.onCreate(null);
-                    mMapView.onPause();
-                    mMapView.onDestroy();
-                }catch (Exception ignored){
-
-                }
-            }
-        }).start();
+        mMapView = (MapView) mView.findViewById(R.id.mapView);
         if (mMapView != null) {
             mMapView.onCreate(null);
             mMapView.getMapAsync(this);
@@ -79,6 +64,7 @@ public class mapTab extends Fragment implements OnMapReadyCallback {
         });
         */
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         MapsInitializer.initialize(getContext());
@@ -96,48 +82,7 @@ public class mapTab extends Fragment implements OnMapReadyCallback {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_FINE_LOCATION);
         }
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                /*
-                if(marker != null && marker.getTitle().equals("(VWOName)Nanyang Technological University Welfare Services Club")){
-                    //Switch to VWO View with its info
-                    return true;
-                }
-                return false;
-                */
-                //startActivity(new Intent(mView.getContext(), VWOView.class));
-                return true;
-            }
-        });
     }
-
-
-    /*
-    @Override
-    public void onResume() {
-        mMapView.onResume();
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mMapView.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mMapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mMapView.onLowMemory();
-    }
-*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
