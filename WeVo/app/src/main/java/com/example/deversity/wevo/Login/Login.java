@@ -20,6 +20,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Combined boundary and control class for login
@@ -34,8 +40,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
+    private String UserType;
+    private String VWOID;
 
     private final static int PERMISSION_FINE_LOCATION = 101;
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference mUserRef = mRootRef.child("Vol");
+    DatabaseReference mVWORef = mRootRef.child("VWO");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +103,27 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             //user is successfully registered and logged in
                             finish();
-                            startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class));
+                            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            mVWORef.child("id").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot childID: dataSnapshot.getChildren()){
+                                        VWOID = childID.getKey();
+                                        if (VWOID == user.getUid())
+                                            UserType = "VWO";
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                            if (UserType == "VWO")
+                                startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VWOView.class));
+                            else
+                                startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class));
+
                         } else {
                             Toast.makeText(Login.this, "Log In Failed", Toast.LENGTH_SHORT).show();
                         }
