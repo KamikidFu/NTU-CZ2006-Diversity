@@ -28,7 +28,6 @@ import java.util.ArrayList;
 public class jobTab extends Fragment {
 
     private View mView;
-    private String[] placeholdJOB = {"JOB1", "JOB2", "JOB3","JOB4","JOB5","JOB6"};
     private ListView jobListView;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference mJobRef = FirebaseDatabase.getInstance().getReference().child("Vol").child(user.getUid()).child("Jobs");
