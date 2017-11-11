@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.deversity.wevo.Login.Login;
 import com.example.deversity.wevo.R;
-import com.example.deversity.wevo.Entity.Volunteer;
 import com.example.deversity.wevo.mgr.VolunteerClientMgr;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,7 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import com.example.deversity.wevo.R;
 
 /**
  * UserTab is a boundary class for showing volunteer information
@@ -50,7 +47,7 @@ public class userTab extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserName = dataSnapshot.child("name").getValue(String.class);
-                UserDescription = dataSnapshot.child("Description").getValue(String.class);
+                UserDescription = dataSnapshot.child("description").getValue(String.class);
                 mEditTextName.setText(UserName);
                 mEditTextBrief.setText(UserDescription);
             }
