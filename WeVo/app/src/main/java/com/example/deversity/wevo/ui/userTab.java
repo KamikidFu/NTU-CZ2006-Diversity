@@ -46,6 +46,8 @@ public class userTab extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserName = dataSnapshot.child("name").getValue().toString();
                 UserDescription = dataSnapshot.child("Description").getValue().toString();
+                mEditTextName.setText(UserName);
+                mEditTextBrief.setText(UserDescription);
             }
 
             @Override
@@ -53,8 +55,6 @@ public class userTab extends Fragment {
 
             }
         });
-        mEditTextName.setText(UserName);
-        mEditTextBrief.setText(UserDescription);
         return rootView;
     }
 
