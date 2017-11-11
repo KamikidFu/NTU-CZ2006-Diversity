@@ -30,6 +30,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         Log.d("Its okay", "onCreate() is working");
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_AppCompat_NoActionBar);
         setContentView(R.layout.activity_vwoview);
         addEventButton = (Button) findViewById(R.id.addEventButton);
         addEventButton.setOnClickListener((View.OnClickListener) this);
