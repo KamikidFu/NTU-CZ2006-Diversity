@@ -20,6 +20,7 @@
             android:text="Event Name" />
 
         <EditText
+            android:id="@+id/editTextEventName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="5"
@@ -33,6 +34,7 @@
             android:text="Event Description" />
 
         <EditText
+            android:id="@+id/editTextEventDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="5"
@@ -46,7 +48,7 @@
             android:text="Location of Event:" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editTextEventLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="5"
@@ -60,7 +62,7 @@
             android:text="Date of Event:" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editTextEventDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="5"
@@ -74,7 +76,7 @@
             android:text="Time of Event:" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/editTextEventTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="5"
@@ -114,12 +116,12 @@
             </LinearLayout>
 
             <!-- Right side spacer -->
-                <Button
-                    android:id="@+id/plusButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:text="+"
-                    android:textAllCaps="true" />
+            <Button
+                android:id="@+id/plusButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="+"
+                android:textAllCaps="true" />
 
             <TextView
                 android:id="@+id/quantity_text_view"
@@ -129,13 +131,13 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
-                <Button
-                    android:id="@+id/minusButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:text="-"
-                    android:textAllCaps="true" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/minusButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="-"
+                android:textAllCaps="true" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

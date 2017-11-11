@@ -62,7 +62,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
-        switchType = (Switch) findViewById(R.id.switchType);
+        switchType = (Switch) findViewById(R.id.switchUserType);
 
         switchType.setChecked(true);
         buttonLogin.setOnClickListener(this);

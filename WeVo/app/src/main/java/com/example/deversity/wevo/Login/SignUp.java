@@ -10,11 +10,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.deversity.wevo.Entity.Event;
+import com.example.deversity.wevo.Entity.Job;
+import com.example.deversity.wevo.Entity.VWO;
+import com.example.deversity.wevo.Entity.Volunteer;
+import com.example.deversity.wevo.ui.VWOView;
 import com.example.deversity.wevo.ui.VolunteerView;
 import com.example.deversity.wevo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +26,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Combined boundary and control class for sign up
@@ -33,10 +44,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
     private EditText editTextPassword;
     private TextView textViewSignIn;
     private ProgressBar progressBar;
-    private Switch switchType;
-    private String typeChoice = "volunteer";
-
+    private EditText editTextName;
+    private EditText editTextDescription;
+    private Switch switchUserType;
     private FirebaseAuth firebaseAuth;
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +71,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
+        switchUserType = (Switch) findViewById(R.id.switchUserType);
+        editTextDescription = (EditText) findViewById(R.id.editTextDescription);
+        editTextName = (EditText) findViewById(R.id.editTextName);
 
-        switchType.setChecked(true);
         buttonSignUp.setOnClickListener(this);
         textViewSignIn.setOnClickListener(this);
     }
@@ -69,12 +83,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        final String name = editTextName.getText().toString().trim();
+        final String description = editTextDescription.getText().toString().trim();
 
-        if( switchType.isChecked()  ) typeChoice = "volunteer";
-        else typeChoice = "vwo";
-
-        email = email + typeChoice;
-        password = password + typeChoice;
         if(TextUtils.isEmpty(email)) {
             //email is empty
             Toast.makeText(this, "Please Enter Email", Toast.LENGTH_SHORT ).show();
@@ -88,30 +99,91 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
             //stopping the execution
             return;
         }
+
+        if(TextUtils.isEmpty(name)) {
+            //password is empty
+            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT ).show();
+            //stopping the execution
+            return;
+        }
+
+        if(TextUtils.isEmpty(description)) {
+            //password is empty
+            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT ).show();
+            //stopping the execution
+            return;
+        }
+
         //if validations are ok
         progressBar.setVisibility(View.VISIBLE);
 
-        firebaseAuth.createUserWithEmailAndPassword( email, password )
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        progressBar.setVisibility(View.INVISIBLE);
+        if (switchUserType.isChecked()){
+            firebaseAuth.createUserWithEmailAndPassword( email, password )
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if (task.isSuccessful()) {
-                            //user is successfully registered and logged in
-                            if (firebaseAuth.getCurrentUser() != null ){
-                                //profile activity
-                                finish();
-                                startActivity(new Intent(getApplicationContext(), VolunteerView.class));
+                            progressBar.setVisibility(View.INVISIBLE);
+
+                            if (task.isSuccessful()) {
+                                //user is successfully registered and logged in
+                                if (firebaseAuth.getCurrentUser() != null ){
+                                    //profile activity
+                                    finish();
+                                    startActivity(new Intent(getApplicationContext(), VolunteerView.class));
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    if (user != null){
+                                        // TODO: Change between VWO and Volunteer, add Name, remove Password, add description
+                                        ArrayList<Job> startingJob = new ArrayList<>();
+                                        Volunteer newVolunteer = new Volunteer(name, user.getEmail(), "password", description, startingJob);
+                                        Map<String, Object> volunteerData = new HashMap<>();
+                                        volunteerData.put(user.getUid(), newVolunteer);
+                                        mRootRef.child("Vol").child("id").updateChildren(volunteerData);
+                                    }
+
+                                }
+                            } else {
+                                FirebaseException e = (FirebaseException)task.getException();
+                                Log.e("LoginActivity", "Failed Registration", e);
+                                //Toast.makeText(SignUp.this, "Failed", Toast.LENGTH_SHORT).show();
                             }
-                        } else {
-                            FirebaseException e = (FirebaseException)task.getException();
-                            Log.e("LoginActivity", "Failed Registration", e);
-                            //Toast.makeText(SignUp.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
+                    });
+        }
+        else {
+            firebaseAuth.createUserWithEmailAndPassword( email, password )
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            progressBar.setVisibility(View.INVISIBLE);
+
+                            if (task.isSuccessful()) {
+                                //user is successfully registered and logged in
+                                if (firebaseAuth.getCurrentUser() != null ){
+                                    //profile activity
+                                    finish();
+                                    startActivity(new Intent(getApplicationContext(), VWOView.class));
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    if (user != null){
+                                        ArrayList<Event> emptyEvent = new ArrayList<>();
+                                        VWO newVWO = new VWO(name, user.getEmail(), "Password", "location", description, emptyEvent);
+                                        Map<String, Object> VWOData = new HashMap<>();
+                                        VWOData.put(user.getUid(), newVWO);
+                                        mRootRef.child("VWO").child("id").updateChildren(VWOData);
+                                    }
+
+                                }
+                            } else {
+                                FirebaseException e = (FirebaseException)task.getException();
+                                Log.e("LoginActivity", "Failed Registration", e);
+                                //Toast.makeText(SignUp.this, "Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+        }
     }
 
     @Override
