@@ -25,7 +25,7 @@ public class VWOClientMgr {
     public void createEvent(String EventName, Event newEvent){
         Map<String, Object> EventData = new HashMap<>();
         EventData.put(EventName, newEvent);
-        mRootRef.child("VWO").child(USER.getUid()).child("Events").updateChildren(EventData);
+        mRootRef.child("VWO").child("id").child(USER.getUid()).child("Events").updateChildren(EventData);
     }
 
 }
