@@ -58,8 +58,9 @@
             android:id="@+id/switchUserType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textOff="Volunteer"
-            android:textOn="VWO"
+            android:textOff="VWO"
+            android:textOn="Volunteer"
+            android:showText="true"
             tools:checked="false" />
 
         <Button

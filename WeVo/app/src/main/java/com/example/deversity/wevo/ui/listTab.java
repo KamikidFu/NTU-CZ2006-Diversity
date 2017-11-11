@@ -40,7 +40,8 @@ public class listTab extends Fragment{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()){
-                    VWOArrayList.add(VWOSnapshot.child("Name").getValue().toString());
+                    if (VWOSnapshot.child("Name").getValue() != null)
+                        VWOArrayList.add(VWOSnapshot.child("Name").getValue().toString());
                 }
             }
 
