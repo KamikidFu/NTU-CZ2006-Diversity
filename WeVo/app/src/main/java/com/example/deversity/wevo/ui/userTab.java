@@ -35,7 +35,8 @@ public class userTab extends Fragment {
     EditText mEditTextBrief;
     Button mButtonNameModify;
     Button mButtonBriefModify;
-    Volunteer User;
+    String UserName;
+    String UserDescription;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +44,8 @@ public class userTab extends Fragment {
         mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User = dataSnapshot.child("name").getValue(Volunteer.class);
+                UserName = dataSnapshot.child("name").getValue().toString();
+                UserDescription = dataSnapshot.child("Description").getValue().toString();
             }
 
             @Override
@@ -51,8 +53,8 @@ public class userTab extends Fragment {
 
             }
         });
-        mEditTextName.setText(User.getName());
-        mEditTextBrief.setText(User.getDescription());
+        mEditTextName.setText(UserName);
+        mEditTextBrief.setText(UserDescription);
         return rootView;
     }
 
