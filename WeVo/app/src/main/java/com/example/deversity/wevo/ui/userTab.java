@@ -49,8 +49,8 @@ public class userTab extends Fragment {
         mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                UserName = dataSnapshot.child("name").getValue().toString();
-                UserDescription = dataSnapshot.child("Description").getValue().toString();
+                UserName = dataSnapshot.child("name").getValue(String.class);
+                UserDescription = dataSnapshot.child("Description").getValue(String.class);
                 mEditTextName.setText(UserName);
                 mEditTextBrief.setText(UserDescription);
             }
