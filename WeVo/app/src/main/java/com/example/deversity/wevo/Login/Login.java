@@ -87,9 +87,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
                 if (firebaseAuth.getCurrentUser() != null ) {
-                    startActivity( new Intent( Login.this, com.example.deversity.wevo.ui.VolunteerView.class));
+                    //startActivity( new Intent( Login.this, com.example.deversity.wevo.ui.VolunteerView.class));
                 }
             }
         };
@@ -104,6 +103,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         buttonLogin.setOnClickListener(this);
         textViewSignUp.setOnClickListener(this);
     }
+
     private void userLogin() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -125,40 +125,26 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //if validations are ok
         progressBar.setVisibility(View.VISIBLE);
 
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressBar.setVisibility(View.INVISIBLE);
-                        if (task.isSuccessful()) {
-                            //user is successfully registered and logged in
-                            finish();
-                            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            mVWORef.child("id").addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot childID: dataSnapshot.getChildren()){
-                                        VWOID = childID.getKey();
-                                        if (VWOID == user.getUid())
-                                            UserType = "VWO";
-                                    }
-                                }
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
+        firebaseAuth.signInWithEmailAndPassword(email,password+"VOL").addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class));
+                }
+            }
+        });
 
-                                }
-                            });
-                            if (UserType == "VWO")
-                                startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VWOView.class));
-                            else
-                                startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class));
-
-                        } else {
-                            Toast.makeText(Login.this, "Log In Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        firebaseAuth.signInWithEmailAndPassword(email,password+"VWO").addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VWOView.class));
+                }
+            }
+        });
     }
 
     @Override

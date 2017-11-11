@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class listTab extends Fragment{
     private View mView;
-    private String[] placeholdVWO = {"VWO1", "VWO2", "VWO3","VWO4","VWO5"};
     private ArrayList<String> VWOArrayList = new ArrayList<>();
     private ListView vwoListView;
     DatabaseReference mVWORef = FirebaseDatabase.getInstance().getReference().child("VWO");

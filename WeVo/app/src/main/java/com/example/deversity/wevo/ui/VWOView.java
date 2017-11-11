@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.deversity.wevo.R;
 
@@ -26,6 +27,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        Toast.makeText(this, "You click on submit button", Toast.LENGTH_LONG).show();
         super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.activity_vwoview);
         addEventButton = (Button) findViewById(R.id.addEventButton);
@@ -39,7 +41,8 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         if(view == addEventButton){
-            startActivity(new Intent(this, EventCreator.class));
+            //startActivity(new Intent(this, EventCreator.class));
+
         }
     }
 }

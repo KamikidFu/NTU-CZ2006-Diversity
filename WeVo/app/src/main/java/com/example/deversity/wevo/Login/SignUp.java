@@ -86,30 +86,30 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         final String name = editTextName.getText().toString().trim();
         final String description = editTextDescription.getText().toString().trim();
 
-        if(TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(email)) {
             //email is empty
-            Toast.makeText(this, "Please Enter Email", Toast.LENGTH_SHORT ).show();
+            Toast.makeText(this, "Please Enter Email", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
 
         }
-        if(TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password)) {
             //password is empty
-            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT ).show();
+            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
 
-        if(TextUtils.isEmpty(name)) {
+        if (TextUtils.isEmpty(name)) {
             //password is empty
-            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT ).show();
+            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
 
-        if(TextUtils.isEmpty(description)) {
+        if (TextUtils.isEmpty(description)) {
             //password is empty
-            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT ).show();
+            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
@@ -118,22 +118,20 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         progressBar.setVisibility(View.VISIBLE);
 
 
-        if (switchUserType.isChecked()){
-            firebaseAuth.createUserWithEmailAndPassword( email, password )
+        if (switchUserType.isChecked()) {
+            firebaseAuth.createUserWithEmailAndPassword(email, password + "VOL")
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-
                             progressBar.setVisibility(View.INVISIBLE);
-
                             if (task.isSuccessful()) {
                                 //user is successfully registered and logged in
-                                if (firebaseAuth.getCurrentUser() != null ){
+                                if (firebaseAuth.getCurrentUser() != null) {
                                     //profile activity
                                     finish();
                                     startActivity(new Intent(getApplicationContext(), VolunteerView.class));
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                    if (user != null){
+                                    if (user != null) {
                                         // TODO: Change between VWO and Volunteer, add Name, remove Password, add description
                                         ArrayList<Job> startingJob = new ArrayList<>();
                                         Volunteer newVolunteer = new Volunteer(name, user.getEmail(), "password", description, startingJob);
@@ -141,18 +139,16 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                                         volunteerData.put(user.getUid(), newVolunteer);
                                         mRootRef.child("Vol").child("id").updateChildren(volunteerData);
                                     }
-
                                 }
                             } else {
-                                FirebaseException e = (FirebaseException)task.getException();
+                                FirebaseException e = (FirebaseException) task.getException();
                                 Log.e("LoginActivity", "Failed Registration", e);
                                 //Toast.makeText(SignUp.this, "Failed", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-        }
-        else {
-            firebaseAuth.createUserWithEmailAndPassword( email, password )
+        } else {
+            firebaseAuth.createUserWithEmailAndPassword(email, password + "VWO")
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -161,12 +157,12 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
                             if (task.isSuccessful()) {
                                 //user is successfully registered and logged in
-                                if (firebaseAuth.getCurrentUser() != null ){
+                                if (firebaseAuth.getCurrentUser() != null) {
                                     //profile activity
                                     finish();
                                     startActivity(new Intent(getApplicationContext(), VWOView.class));
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                    if (user != null){
+                                    if (user != null) {
                                         ArrayList<Event> emptyEvent = new ArrayList<>();
                                         VWO newVWO = new VWO(name, user.getEmail(), "Password", "location", description, emptyEvent);
                                         Map<String, Object> VWOData = new HashMap<>();
@@ -176,7 +172,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
                                 }
                             } else {
-                                FirebaseException e = (FirebaseException)task.getException();
+                                FirebaseException e = (FirebaseException) task.getException();
                                 Log.e("LoginActivity", "Failed Registration", e);
                                 //Toast.makeText(SignUp.this, "Failed", Toast.LENGTH_SHORT).show();
                             }
