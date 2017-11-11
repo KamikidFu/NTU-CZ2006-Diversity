@@ -21,6 +21,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.geojson.GeoJsonLayer;
+
+import org.json.JSONException;
+
+import java.io.IOException;
 
 /**
  * MapTab is a boundary class for showing VWOs on google map
@@ -30,6 +35,7 @@ public class mapTab extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private MapView mMapView;
     private View mView;
+    private GeoJsonLayer layer;
     private final static int PERMISSION_FINE_LOCATION = 101;
     //ZoomControls zoomControls;
 
@@ -37,6 +43,13 @@ public class mapTab extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.activity_maptab, container, false);
+        try {
+            layer = new GeoJsonLayer(mMap, R.raw.vwo, getActivity().getApplicationContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return mView;
     }
 
