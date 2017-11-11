@@ -1,9 +1,6 @@
 package com.example.deversity.wevo.Entity;
 
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Entity class for VWO
@@ -11,18 +8,28 @@ import java.util.List;
  */
 
 public class VWO {
+    private  String name;
     private String email;
     private String password;
     private String location;
     private String description;
     private ArrayList<Event> eventList;
 
-    public VWO(String email, String password, String location, String description, ArrayList<Event> eventList) {
+    public VWO(String name, String email, String password, String location, String description, ArrayList<Event> eventList) {
+        this.name = name;
         this.email = email;
         this.password = password;
         this.location = location;
         this.description = description;
         this.eventList = eventList;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 
     public String getEmail() {

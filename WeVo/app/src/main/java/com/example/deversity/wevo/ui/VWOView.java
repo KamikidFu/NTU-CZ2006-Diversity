@@ -23,6 +23,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
     private String[] placeholderEvents = {"Event1","Event2","Event3"};
     private ListView eventListView;
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -31,8 +32,8 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         addEventButton.setOnClickListener((View.OnClickListener) this);
         eventListView=(ListView)findViewById(R.id.eventList);
 
-        ListAdapter vwoAdpter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,placeholderEvents);
-        eventListView.setAdapter(vwoAdpter);
+        ListAdapter vwoAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,placeholderEvents);
+        eventListView.setAdapter(vwoAdapter);
     }
 
     @Override

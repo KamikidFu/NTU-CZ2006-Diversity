@@ -1,7 +1,5 @@
 package com.example.deversity.wevo.Entity;
 
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.List;
 
 /**
@@ -15,11 +13,14 @@ public class Job {
     private Event relatedEvent;
     private List<Volunteer> volunteerList;
     private int amountNeed;
-    private int vancany;
-    private FirebaseDatabase firebaseDatabase;
+    private int vacancy;
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setDescription(String Description) {
+        this.description=Description;
     }
 
     public void setAmountNeed(int amountNeed) {
@@ -46,7 +47,7 @@ public class Job {
         return amountNeed;
     }
 
-    public int getVancany() {
-        return vancany;
+    public int getVacancy() {
+        return vacancy;
     }
 }
