@@ -29,7 +29,7 @@ import com.example.deversity.wevo.R;
 public class userTab extends Fragment {
     FirebaseUser USER = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference mUserRef = mRootRef.child("Vol").child(USER.getUid());
+    DatabaseReference mUserRef = mRootRef.child("Vol").child("id").child(USER.getUid());
 
     EditText mEditTextName;
     EditText mEditTextBrief;
