@@ -27,5 +27,8 @@ public class VWOClientMgr {
         EventData.put(EventName, newEvent);
         mRootRef.child("VWO").child("id").child(USER.getUid()).child("Events").updateChildren(EventData);
     }
+    public void editDescription(String Description){
+        mRootRef.child("VWO").child("id").child(USER.getUid()).child("description").setValue(Description);
+    }
 
 }
