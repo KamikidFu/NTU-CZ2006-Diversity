@@ -1,6 +1,6 @@
 package com.example.deversity.wevo.Entity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Entity class for Job
@@ -10,10 +10,17 @@ import java.util.List;
 public class Job {
     private String name;
     private String description;
-    private Event relatedEvent;
-    private List<Volunteer> volunteerList;
+    private ArrayList<Volunteer> volunteerList;
     private int amountNeed;
     private int vacancy;
+
+    public Job(String name, String description, ArrayList<Volunteer> volunteerList, int amountNeed, int vacancy){
+        this.name = name;
+        this.description = description;
+        this.volunteerList = volunteerList;
+        this.amountNeed = amountNeed;
+        this.vacancy = vacancy;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -35,11 +42,7 @@ public class Job {
         return description;
     }
 
-    public Event getRelatedEvent() {
-        return relatedEvent;
-    }
-
-    public List<Volunteer> getVolunteerList() {
+    public ArrayList<Volunteer> getVolunteerList() {
         return volunteerList;
     }
 

@@ -1,7 +1,9 @@
 package com.example.deversity.wevo.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,8 +24,6 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
 
     private Button submitButton;
     private Button discardButton;
-    private Button increaseButton;
-    private Button decreaseButton;
     private EditText EditTextEventName;
     private EditText EditTextEventDescription;
     private EditText EditTextEventLocation;
@@ -37,8 +37,6 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_event_creator);
         submitButton = (Button) findViewById(R.id.submitButton);
         discardButton = (Button) findViewById(R.id.discardButton);
-        increaseButton = (Button) findViewById(R.id.plusButton);
-        decreaseButton = (Button) findViewById(R.id.minusButton);
         EditTextEventDate = findViewById(R.id.editTextEventDate);
         EditTextEventDescription = findViewById(R.id.editTextEventDescription);
         EditTextEventLocation = findViewById(R.id.editTextEventLocation);
@@ -46,24 +44,35 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
         EditTextEventTime = findViewById(R.id.editTextEventTime);
     }
 
+    public void onStart(){
+        super.onStart();
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Job> newJobList = new ArrayList<>();
+                String EventName = EditTextEventName.getText().toString();
+                String EventDate = EditTextEventDate.getText().toString();
+                EventDate = EventDate +  ";" + EditTextEventTime.getText().toString();
+                String EventDescription = EditTextEventDescription.getText().toString();
+                Event newEvent = new Event(EventDate, EventDescription, newJobList);
+                VWOMgr.createEvent(EventName, newEvent);
+                Intent intent = new Intent(EventCreator.this, JobCreator.class);
+                intent.putExtra("EventName", EventName);
+                startActivity(intent);
+            }
+        });
+        discardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EventCreator.this, VWOView.class));
+                //Toast.makeText(this, "You click on discard button", Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
     @Override
     public void onClick(View view) {
-        if(view == submitButton){
-            ArrayList<Job> newJobList = new ArrayList<>();
-            String EventName = EditTextEventName.getText().toString();
-            String EventDate = EditTextEventDate.getText().toString();
-            EventDate = EventDate +  ";" + EditTextEventTime.getText().toString();
-            String EventDescription = EditTextEventDescription.getText().toString();
-            Event newEvent = new Event(EventDate, EventDescription, newJobList);
-            VWOMgr.createEvent(EventName, newEvent);
 
-            //Toast.makeText(this, "You click on submit button", Toast.LENGTH_LONG).show();
-        }else if(view == discardButton){
-            //Toast.makeText(this, "You click on discard button", Toast.LENGTH_LONG).show();
-        }else if(view == increaseButton){
-            //Toast.makeText(this, "You click on increase button", Toast.LENGTH_LONG).show();
-        }else if(view == decreaseButton){
-            //Toast.makeText(this, "You click on decrease button", Toast.LENGTH_LONG).show();
-        }
     }
 }

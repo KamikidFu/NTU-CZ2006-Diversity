@@ -10,17 +10,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.33999997">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:text="Job Name"
             android:textSize="20dp"
-            android:text="Event Name" />
+            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextEventName"
+            android:id="@+id/editTextJobName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="5"
@@ -29,12 +34,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:text="Job Description"
             android:textSize="20dp"
-            android:text="Event Description" />
+            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextEventDescription"
+            android:id="@+id/editTextJobDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="5"
@@ -43,52 +48,25 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:text="Amount of Volunteer Need"
             android:textSize="20dp"
-            android:text="Location of Event:" />
+            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextEventLocation"
+            android:id="@+id/editTextVolunteerNeeded"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="5"
-            android:inputType="textPostalAddress" />
+            android:inputType="text" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:text="Date of Event:" />
-
-        <EditText
-            android:id="@+id/editTextEventDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:inputType="date" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:text="Time of Event:" />
-
-        <EditText
-            android:id="@+id/editTextEventTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:inputType="time" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
-                android:id="@+id/submitButton"
+                android:id="@+id/addJobButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -98,23 +76,23 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:background="#00ff00"
-                android:text="Next"
+                android:text="Add Job"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintRight_toLeftOf="@+id/discardButton" />
 
             <Button
-                android:id="@+id/discardButton"
+                android:id="@+id/finishButton"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintLeft_toRightOf="@+id/submitButton"
-                android:background="#ff0000"
-                android:text="Discard"/>
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_blue_dark"
+                android:text="Finish"
+                app:layout_constraintLeft_toRightOf="@+id/submitButton" />
 
         </LinearLayout>
     </LinearLayout>

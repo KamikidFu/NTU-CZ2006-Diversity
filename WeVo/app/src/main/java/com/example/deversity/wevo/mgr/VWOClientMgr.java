@@ -1,8 +1,8 @@
 package com.example.deversity.wevo.mgr;
 
 import com.example.deversity.wevo.Entity.Event;
+import com.example.deversity.wevo.Entity.Job;
 import com.example.deversity.wevo.Entity.VWO;
-import com.example.deversity.wevo.Entity.Event;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +29,12 @@ public class VWOClientMgr {
     }
     public void editDescription(String Description){
         mRootRef.child("VWO").child("id").child(USER.getUid()).child("description").setValue(Description);
+    }
+
+    public void addJobToEvent(Job newJob, String EventName){
+        Map<String, Object> JobData = new HashMap<>();
+        JobData.put(newJob.getName(), newJob);
+        mRootRef.child("VWO").child("id").child(USER.getUid()).child("Events").child(EventName).child("Jobs").updateChildren(JobData);
     }
 
 }

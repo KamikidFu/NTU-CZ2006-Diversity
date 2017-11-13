@@ -30,11 +30,7 @@ public class listTab extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         mView = inflater.inflate(R.layout.activity_listtab, container, false);
-        return mView;
-    }
-    @Override
-    public void onViewCreated(View view,  Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        vwoListView = (ListView) mView.findViewById(R.id.vwoList);
         mVWORef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -50,9 +46,15 @@ public class listTab extends Fragment{
 
             }
         });
-        vwoListView = (ListView) mView.findViewById(R.id.vwoList);
         ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,VWOArrayList);
         vwoListView.setAdapter(vwoAdapter);
+        return mView;
+    }
+    @Override
+    public void onViewCreated(View view,  Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
     }
 
 }

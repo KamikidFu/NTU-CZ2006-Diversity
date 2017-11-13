@@ -2,8 +2,6 @@ package com.example.deversity.wevo.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 /**
  * VWOView is boundary class for VWO Client
  * @author Teo;
@@ -33,6 +33,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
 
     private Button addEventButton;
     private String[] placeholderEvents = {"Event1","Event2","Event3"};
+    private ArrayList<String> EventsArrayList;
     private ListView eventListView;
     private TextView TextViewVWOName;
     private EditText EditTextDescription;
@@ -53,11 +54,17 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         addEventButton = (Button) findViewById(R.id.addEventButton);
         addEventButton.setOnClickListener((View.OnClickListener) this);
         eventListView=(ListView)findViewById(R.id.eventList);
+        EventsArrayList = new ArrayList<>();
         mRootView.child("VWO").child("id").child(USER.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 TextViewVWOName.setText(dataSnapshot.child("name").getValue(String.class));
                 EditTextDescription.setText(dataSnapshot.child("description").getValue(String.class));
+                for (DataSnapshot EventSnapshot: dataSnapshot.child("Events").getChildren()){
+                    if (EventSnapshot.getValue() != null){
+                        EventsArrayList.add(EventSnapshot.getKey());
+                    }
+                }
             }
 
             @Override
@@ -66,7 +73,8 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
             }
         });
 
-        ListAdapter vwoAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,placeholderEvents);
+
+        ListAdapter vwoAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,EventsArrayList);
         eventListView.setAdapter(vwoAdapter);
     }
 
