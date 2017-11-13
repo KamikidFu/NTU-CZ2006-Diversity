@@ -46,7 +46,6 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         Log.d("Its okay", "onCreate() is working");
         super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_AppCompat_NoActionBar);
         setContentView(R.layout.activity_vwoview);
         TextViewVWOName = findViewById(R.id.vwoNameLabel);
         EditTextDescription = findViewById(R.id.descripEdit);

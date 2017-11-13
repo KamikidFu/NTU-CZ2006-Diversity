@@ -55,9 +55,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_AppCompat_NoActionBar);
         setContentView(R.layout.activity_login);
-
         firebaseAuth = FirebaseAuth.getInstance();
 
         if (ContextCompat.checkSelfPermission(this,
@@ -90,7 +88,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null ) {
-                    //startActivity( new Intent( Login.this, com.example.deversity.wevo.ui.VolunteerView.class));
+                    startActivity( new Intent( Login.this, com.example.deversity.wevo.ui.VolunteerView.class));
                 }
             }
         };

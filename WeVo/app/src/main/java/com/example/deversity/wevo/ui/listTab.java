@@ -38,6 +38,7 @@ public class listTab extends Fragment{
         mVWORef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                VWOArrayList = new ArrayList<>();
                 for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()){
                     if (VWOSnapshot.child("name").getValue(String.class) != null)
                         VWOArrayList.add(VWOSnapshot.child("name").getValue(String.class));

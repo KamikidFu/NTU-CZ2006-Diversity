@@ -1,5 +1,6 @@
 package com.example.deversity.wevo.ui;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.deversity.wevo.Login.Login;
 import com.example.deversity.wevo.R;
 import com.example.deversity.wevo.mgr.VolunteerClientMgr;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +35,7 @@ public class userTab extends Fragment {
     EditText mEditTextBrief;
     Button mButtonNameModify;
     Button mButtonBriefModify;
+    Button mButtonLogOut;
     String UserName;
     String UserDescription;
 
@@ -43,6 +47,7 @@ public class userTab extends Fragment {
         mButtonNameModify = rootView.findViewById(R.id.buttonNameModify);
         mEditTextName = rootView.findViewById(R.id.editTextName);
         mEditTextBrief = rootView.findViewById(R.id.editTextBrief);
+        mButtonLogOut = rootView.findViewById(R.id.btnLogout);
         mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -79,6 +84,20 @@ public class userTab extends Fragment {
             @Override
             public void onClick(View view){
                 userTabMgr.SetDescriptionUSER(mEditTextBrief.getText().toString());
+            }
+        });
+
+        mButtonLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Log you out", Toast.LENGTH_SHORT ).show();
+                userTabMgr.LogOut();
+                startActivity(new Intent(getContext(), Login.class));
+                try {
+                    userTab.this.finalize();
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
             }
         });
     }
