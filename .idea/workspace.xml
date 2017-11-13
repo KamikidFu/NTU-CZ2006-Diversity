@@ -2,28 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dfa9411f-daef-4e56-afa8-9a62591c9f02" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/dataObj/Event.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/dataObj/Job.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/dataObj/VWO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/dataObj/Volunteer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/MainActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WeVo/app/src/main/res/layout/activity_main.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WeVo/app/src/main/res/layout/job_tab.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WeVo/app/src/main/res/layout/list_tab.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WeVo/app/src/main/res/layout/map_tab.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WeVo/app/src/main/res/layout/user_tab.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/WeVo/app/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/Login/Login.java" afterPath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/Login/Login.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/Login/SignUp.java" afterPath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/Login/SignUp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/mgr/ShowVWOMgr.java" afterPath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/mgr/ShowVWOMgr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/mgr/VWOClientMgr.java" afterPath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/mgr/VWOClientMgr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/mgr/VolunteerClientMgr.java" afterPath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/mgr/VolunteerClientMgr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/EventCreator.java" afterPath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/EventCreator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/VWOView.java" afterPath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/VWOView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/jobTab.java" afterPath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/jobTab.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/listTab.java" afterPath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/listTab.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/VolunteerView.java" afterPath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/VolunteerView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/mapTab.java" afterPath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/mapTab.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/userTab.java" afterPath="$PROJECT_DIR$/WeVo/app/src/main/java/com/example/deversity/wevo/ui/userTab.java" />
     </list>
     <ignored path="NTU-CZ2006-Diversity.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,6 +21,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="NTU-CZ2006-Diversity" />
+    <favorites_list name="CodeIris Favorites" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,23 +32,12 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-11" />
-    <option name="y" value="-11" />
-    <option name="width" value="1942" />
-    <option name="height" value="1162" />
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
-    <OptionsSetting value="true" id="Add" />
-    <OptionsSetting value="true" id="Remove" />
-    <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
-    <OptionsSetting value="true" id="Status" />
-    <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
+    <option name="x" value="-7" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator currentView="AndroidView" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -81,28 +52,10 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NTU-CZ2006-Diversity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NTU-CZ2006-Diversity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NTU-CZ2006-Diversity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WeVo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="NTU-CZ2006-Diversity" />
@@ -115,16 +68,24 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="AndroidView">
-        <subPane />
-      </pane>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/WeVo" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="Application" factoryName="Application">
@@ -211,22 +172,25 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1162" extended-state="6" />
-    <editor active="false" />
+    <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="simpleUML" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24986738" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33296824" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Code Iris" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />

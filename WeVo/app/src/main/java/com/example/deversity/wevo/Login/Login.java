@@ -88,7 +88,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null ) {
-                    //startActivity( new Intent( Login.this, com.example.deversity.wevo.ui.VolunteerView.class));
+                    startActivity( new Intent( Login.this, com.example.deversity.wevo.ui.VolunteerView.class));
                 }
             }
         };

@@ -47,7 +47,7 @@ public class jobTab extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot JobSnapshot: dataSnapshot.getChildren()){
                     if (JobSnapshot.getValue() != null){
-                        tempJob = JobSnapshot.getValue().toString().split(";")[2];
+                        tempJob = JobSnapshot.getValue().toString().split(";")[1];
                         JobArrayList.add(tempJob);
                     }
                 }

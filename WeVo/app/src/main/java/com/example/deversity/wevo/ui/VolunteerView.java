@@ -1,5 +1,6 @@
 package com.example.deversity.wevo.ui;
 
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,124 +10,53 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.TableLayout;
 
 import com.example.deversity.wevo.R;
+import com.example.deversity.wevo.mgr.SectionsPagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * VolunteerView is a boundary class that contains four tab fragments
- * @author John;
+ * @author John; Fu, Yunhao
  */
 public class VolunteerView extends AppCompatActivity {
+    private static final String TAG = "VolunteerView";
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
+    private SectionsPagerAdapter sectionsPagerAdapter;
+    private ViewPager viewPager;
+    private mapTab mapTab;
+    private listTab listTab;
+    private jobTab jobTab;
+    private userTab userTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volunteerview);
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mapTab = new mapTab();
+        listTab = new listTab();
+        jobTab = new jobTab();
+        userTab = new userTab();
+        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        viewPager = (ViewPager) findViewById(R.id.container);
+        setupViewPager(viewPager);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.setupWithViewPager(viewPager);
+    }
 
+    private void setupViewPager(ViewPager viewPager){
+        SectionsPagerAdapter msectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        msectionsPagerAdapter.addFragment(mapTab, "MAP");
+        msectionsPagerAdapter.addFragment(listTab,"VWO");
+        msectionsPagerAdapter.addFragment(jobTab,"JOB");
+        msectionsPagerAdapter.addFragment(userTab,"USER");
+        viewPager.setAdapter(msectionsPagerAdapter);
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_me) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            //returning the current tabs
-            switch (position) {
-                case 0 :
-                    mapTab mapTab = new mapTab();
-                    return mapTab;
-                case 1 :
-                    listTab listTab = new listTab();
-                    return listTab;
-                case 2 :
-                    jobTab jobTab = new jobTab();
-                    return jobTab;
-                case 3 :
-                    userTab userTab = new userTab();
-                    return userTab;
-                default:
-                    return null;
-
-            }
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 4;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "MAP";
-                case 1:
-                    return "LIST";
-                case 2:
-                    return "JOBS";
-                case 3:
-                    return "USER";
-            }
-            return null;
-        }
-    }
 }

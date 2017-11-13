@@ -23,7 +23,7 @@ public class listTab extends Fragment{
     private View mView;
     private ArrayList<String> VWOArrayList = new ArrayList<>();
     private ListView vwoListView;
-    DatabaseReference mVWORef = FirebaseDatabase.getInstance().getReference().child("VWO");
+    DatabaseReference mVWORef = FirebaseDatabase.getInstance().getReference().child("VWO").child("id");
 
 
     @Override
@@ -38,9 +38,10 @@ public class listTab extends Fragment{
         mVWORef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                VWOArrayList = new ArrayList<>();
                 for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()){
-                    if (VWOSnapshot.child("Name").getValue() != null)
-                        VWOArrayList.add(VWOSnapshot.child("Name").getValue().toString());
+                    if (VWOSnapshot.child("name").getValue(String.class) != null)
+                        VWOArrayList.add(VWOSnapshot.child("name").getValue(String.class));
                 }
             }
 
