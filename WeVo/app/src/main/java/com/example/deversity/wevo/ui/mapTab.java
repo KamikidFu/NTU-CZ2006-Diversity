@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +21,22 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.geojson.GeoJsonFeature;
+import com.google.maps.android.geojson.GeoJsonLayer;
+import com.google.maps.android.geojson.GeoJsonPointStyle;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * MapTab is a boundary class for showing VWOs on google map
@@ -37,6 +47,7 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
     private GoogleMap mMap;
     private MapView mMapView;
     private View mView;
+    private GeoJsonLayer layer;
     private final static int PERMISSION_FINE_LOCATION = 101;
     private static List<MarkerOptions> VWOMarkerList = VolunteerClientMgr.getVWOMarkerList();
 
@@ -80,6 +91,26 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setAllGesturesEnabled(true);
 
+        try {
+            layer = new GeoJsonLayer( mMap, R.raw.vwo, getActivity().getApplicationContext() );
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        for (GeoJsonFeature feature : layer.getFeatures()) {
+            if (feature.hasProperty( "Name" )) {
+                String name = feature.getProperty("Name");
+            }
+        }
+
+        layer.addLayerToMap();
+
+
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setAllGesturesEnabled(true);
         // Set a listener for info window events.
         mMap.setOnInfoWindowClickListener(this);
     }
