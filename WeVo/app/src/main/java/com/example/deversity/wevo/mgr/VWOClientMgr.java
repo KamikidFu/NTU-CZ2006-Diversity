@@ -37,4 +37,8 @@ public class VWOClientMgr {
         mRootRef.child("VWO").child("id").child(USER.getUid()).child("Events").child(EventName).child("Jobs").updateChildren(JobData);
     }
 
+    public void logOut(){
+        FirebaseAuth.getInstance().signOut();
+    }
+
 }

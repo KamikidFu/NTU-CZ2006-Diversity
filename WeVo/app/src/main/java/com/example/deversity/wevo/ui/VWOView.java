@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.deversity.wevo.Login.Login;
 import com.example.deversity.wevo.R;
 import com.example.deversity.wevo.mgr.VWOClientMgr;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +39,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
     private TextView TextViewVWOName;
     private EditText EditTextDescription;
     private Button ButtonEditDescription;
+    private Button ButtonLogOut;
     FirebaseUser USER = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference mRootView = FirebaseDatabase.getInstance().getReference();
 
@@ -51,6 +53,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         TextViewVWOName = findViewById(R.id.vwoNameLabel);
         EditTextDescription = findViewById(R.id.descripEdit);
         ButtonEditDescription = findViewById(R.id.ButtonEditDescription);
+        ButtonLogOut = findViewById(R.id.buttonLogOut);
         addEventButton = (Button) findViewById(R.id.addEventButton);
         addEventButton.setOnClickListener((View.OnClickListener) this);
         eventListView=(ListView)findViewById(R.id.eventList);
@@ -65,6 +68,8 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
                         EventsArrayList.add(EventSnapshot.getKey());
                     }
                 }
+                ListAdapter vwoAdapter = new ArrayAdapter<String>(VWOView.this,android.R.layout.simple_list_item_1,EventsArrayList);
+                eventListView.setAdapter(vwoAdapter);
             }
 
             @Override
@@ -73,9 +78,6 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
             }
         });
 
-
-        ListAdapter vwoAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,EventsArrayList);
-        eventListView.setAdapter(vwoAdapter);
     }
 
     @Override
@@ -86,6 +88,18 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 VWOmgr.editDescription(EditTextDescription.getText().toString());
+            }
+        });
+        ButtonLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VWOmgr.logOut();
+                startActivity(new Intent(VWOView.this, Login.class));
+                try {
+                    VWOView.this.finalize();
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
             }
         });
     }

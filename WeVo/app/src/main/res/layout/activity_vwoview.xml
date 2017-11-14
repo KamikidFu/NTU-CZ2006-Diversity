@@ -55,6 +55,12 @@
             android:layout_height="wrap_content"
             android:text="@string/add_event_button" />
 
+        <Button
+            android:id="@+id/buttonLogOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="log out" />
+
         <ListView
             android:id="@+id/eventList"
             android:layout_width="match_parent"
