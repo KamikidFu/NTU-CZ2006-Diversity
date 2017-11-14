@@ -94,7 +94,7 @@ public class userTab extends Fragment {
                 userTabMgr.LogOut();
                 startActivity(new Intent(getContext(), Login.class));
                 try {
-                    userTab.this.finalize();
+                    finalize();
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                 }

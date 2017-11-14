@@ -4,6 +4,7 @@ package com.example.deversity.wevo.Login;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -41,16 +42,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText editTextPassword;
     private TextView textViewSignUp;
     private ProgressBar progressBar;
-
+    private boolean doubleBackToExitPressedOnce = false;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
-    private String UserType;
-    private String VWOID;
+    private String UserType = "User";
 
     private final static int PERMISSION_FINE_LOCATION = 101;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference mUserRef = mRootRef.child("Vol");
-    DatabaseReference mVWORef = mRootRef.child("VWO");
+    DatabaseReference mVWORef = mRootRef.child("VWO").child("id");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +65,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-                // Show an explanation to the user *asynchronously* -- don't block
+                // Show an explanation to the user asynchronously -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
 
@@ -88,7 +87,31 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null ) {
-                    startActivity( new Intent( Login.this, com.example.deversity.wevo.ui.VolunteerView.class));
+                    final FirebaseUser USER = firebaseAuth.getCurrentUser();
+                    mVWORef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot VWOIDSnapshot: dataSnapshot.getChildren()){
+                                if (USER.getUid().equals(VWOIDSnapshot.getKey()))
+                                    UserType = "VWO";
+                            }
+                            if (UserType.equals("VWO")){
+                                Intent intent =new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VWOView.class);
+                                intent.putExtra("MODE","VWO");
+                                startActivity(intent);
+                            }
+                            else{
+                                Intent intent = new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class);
+                                intent.putExtra("MODE","VOL");
+                                startActivity(intent);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         };
@@ -131,7 +154,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     finish();
-                    startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class));
+                    Intent intent = new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class);
+                    intent.putExtra("MODE","VOL");
+                    startActivity(intent);
                 }
             }
         });
@@ -141,7 +166,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     finish();
-                    startActivity(new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VWOView.class));
+                    Intent intent =new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VWOView.class);
+                    intent.putExtra("MODE","VWO");
+                    startActivity(intent);
                 }
             }
         });
@@ -166,4 +193,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
 
+    @Override
+    public void onBackPressed(){
+    }
 }

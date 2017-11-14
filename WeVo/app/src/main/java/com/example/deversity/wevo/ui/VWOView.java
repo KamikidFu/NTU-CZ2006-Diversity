@@ -2,12 +2,9 @@ package com.example.deversity.wevo.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.deversity.wevo.Login.Login;
 import com.example.deversity.wevo.R;
 import com.example.deversity.wevo.mgr.VWOClientMgr;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,14 +34,16 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
 
     private Button addEventButton;
     private String[] placeholderEvents = {"Event1","Event2","Event3"};
+    private ArrayList<String> EventsArrayList;
     private ListView eventListView;
     private TextView TextViewVWOName;
     private EditText EditTextDescription;
     private Button ButtonEditDescription;
+    private Button ButtonLogOut;
     FirebaseUser USER = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference mRootView = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference mVWORef = FirebaseDatabase.getInstance().getReference().child("VWO").child("id");
-    boolean VWOLogin = false;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,52 +53,31 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         TextViewVWOName = findViewById(R.id.vwoNameLabel);
         EditTextDescription = findViewById(R.id.descripEdit);
         ButtonEditDescription = findViewById(R.id.ButtonEditDescription);
+        ButtonLogOut = findViewById(R.id.buttonLogOut);
         addEventButton = (Button) findViewById(R.id.addEventButton);
         addEventButton.setOnClickListener((View.OnClickListener) this);
         eventListView=(ListView)findViewById(R.id.eventList);
-
-        Intent intent = getIntent();
-        if(!intent.getStringExtra("VWOName").isEmpty()){
-            final String vwoName = intent.getStringExtra("VWOName");
-            VWOLogin = false;
-            mVWORef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()){
-                        if (VWOSnapshot.child("name").getValue(String.class).equals(vwoName)){
-                            TextViewVWOName.setText(dataSnapshot.child("name").getValue(String.class));
-                            EditTextDescription.setText(dataSnapshot.child("description").getValue(String.class));
-                        }
+        EventsArrayList = new ArrayList<>();
+        mRootView.child("VWO").child("id").child(USER.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                TextViewVWOName.setText(dataSnapshot.child("name").getValue(String.class));
+                EditTextDescription.setText(dataSnapshot.child("description").getValue(String.class));
+                for (DataSnapshot EventSnapshot: dataSnapshot.child("Events").getChildren()){
+                    if (EventSnapshot.getValue() != null){
+                        EventsArrayList.add(EventSnapshot.getKey());
                     }
                 }
+                ListAdapter vwoAdapter = new ArrayAdapter<String>(VWOView.this,android.R.layout.simple_list_item_1,EventsArrayList);
+                eventListView.setAdapter(vwoAdapter);
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-            addEventButton.setVisibility(View.INVISIBLE);
-            ButtonEditDescription.setVisibility(View.INVISIBLE);
-            EditTextDescription.setEnabled(false);
+            }
+        });
 
-
-        }else {
-            VWOLogin=true;
-            mRootView.child("VWO").child("id").child(USER.getUid()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    TextViewVWOName.setText(dataSnapshot.child("name").getValue(String.class));
-                    EditTextDescription.setText(dataSnapshot.child("description").getValue(String.class));
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        }
-        ListAdapter vwoAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, placeholderEvents);
-        eventListView.setAdapter(vwoAdapter);
     }
 
     @Override
@@ -111,22 +90,20 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
                 VWOmgr.editDescription(EditTextDescription.getText().toString());
             }
         });
-        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ButtonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String eventName = eventListView.getAdapter().getItem(i).toString();
-                    Intent intent = new Intent(getApplicationContext(),EventCreator.class);
-                    intent.putExtra("EventName", eventName);
-                    if(VWOLogin)
-                        intent.putExtra("UserMode","VWO");
-                    else
-                        intent.putExtra("UserMode","Volunteer");
-                    startActivity(intent);
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Log you out", Toast.LENGTH_SHORT ).show();
+                VWOmgr.logOut();
+                startActivity(new Intent(VWOView.this, Login.class));
+                try {
+                    VWOView.this.finalize();
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
             }
         });
     }
-
-
 
     @Override
     public void onClick(View view) {

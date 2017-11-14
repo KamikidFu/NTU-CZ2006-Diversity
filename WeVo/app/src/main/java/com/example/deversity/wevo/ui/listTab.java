@@ -55,6 +55,17 @@ public class listTab extends Fragment{
     @Override
     public void onViewCreated(View view,  Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        vwoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String vwoName = adapterView.getItemAtPosition(i).toString();
+                if(vwoName!=null){
+                    Intent intent = new Intent(getContext(), VWOView.class);
+                    intent.putExtra("VWOName",vwoName);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
 }
