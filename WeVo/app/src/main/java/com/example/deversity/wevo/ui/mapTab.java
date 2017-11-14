@@ -19,13 +19,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.maps.android.geojson.GeoJsonFeature;
 import com.google.maps.android.geojson.GeoJsonLayer;
-import com.google.maps.android.geojson.GeoJsonPointStyle;
 
 import org.json.JSONException;
 
@@ -90,15 +87,7 @@ public class mapTab extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                GeoJsonPointStyle pointStyle = layer.getDefaultPointStyle();
-                pointStyle.setIcon( BitmapDescriptorFactory.fromResource( R.drawable.ic_action_name ) );
 
-                for (GeoJsonFeature feature : layer.getFeatures()) {
-                    if (feature.hasProperty("Name")) {
-                        String name = feature.getProperty("Name");
-                    }
-                }
-                layer.addLayerToMap();
                 mMap.getUiSettings().setZoomControlsEnabled(true);
                 mMap.getUiSettings().setMyLocationButtonEnabled(true);
                 mMap.getUiSettings().setAllGesturesEnabled(true);
