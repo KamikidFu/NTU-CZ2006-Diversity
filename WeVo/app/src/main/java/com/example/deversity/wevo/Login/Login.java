@@ -83,6 +83,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
         }
 
+        //Auto-login if there is a user once logged in before
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -96,11 +97,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     UserType = "VWO";
                             }
                             if (UserType.equals("VWO")){
+                                Toast.makeText(getApplicationContext(),"Welcome back! VWO!",Toast.LENGTH_LONG).show();
                                 Intent intent =new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VWOView.class);
                                 intent.putExtra("MODE","VWO");
                                 startActivity(intent);
                             }
                             else{
+                                Toast.makeText(getApplicationContext(),"Welcome back! Volunteer!",Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class);
                                 intent.putExtra("MODE","VOL");
                                 startActivity(intent);
@@ -154,6 +157,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     finish();
+                    Toast.makeText(getApplicationContext(),"Bonjour! Volunteer!",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class);
                     intent.putExtra("MODE","VOL");
                     startActivity(intent);
@@ -166,6 +170,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     finish();
+                    Toast.makeText(getApplicationContext(),"Bonjour! VWO!",Toast.LENGTH_LONG).show();
                     Intent intent =new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VWOView.class);
                     intent.putExtra("MODE","VWO");
                     startActivity(intent);

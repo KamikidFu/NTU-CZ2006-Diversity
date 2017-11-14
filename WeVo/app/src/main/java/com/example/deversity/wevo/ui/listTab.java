@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.deversity.wevo.R;
 import com.google.firebase.database.DataSnapshot;
@@ -60,7 +61,9 @@ public class listTab extends Fragment{
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String vwoName = adapterView.getItemAtPosition(i).toString();
                 if(vwoName!=null){
+                    Toast.makeText(getContext(),"Visit "+vwoName,Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), VWOView.class);
+                    intent.putExtra("MODE","VOL");
                     intent.putExtra("VWOName",vwoName);
                     startActivity(intent);
                 }

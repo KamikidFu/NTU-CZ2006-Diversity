@@ -23,7 +23,7 @@ import java.util.List;
  * VolunteerView is a boundary class that contains four tab fragments
  * @author John; Fu, Yunhao
  */
-public class VolunteerView extends AppCompatActivity {
+public final class VolunteerView extends AppCompatActivity {
     private static final String TAG = "VolunteerView";
 
     private SectionsPagerAdapter sectionsPagerAdapter;
