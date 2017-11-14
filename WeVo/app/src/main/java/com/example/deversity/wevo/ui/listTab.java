@@ -39,6 +39,8 @@ public class listTab extends Fragment{
                     if (VWOSnapshot.child("name").getValue(String.class) != null)
                         VWOArrayList.add(VWOSnapshot.child("name").getValue(String.class));
                 }
+                ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,VWOArrayList);
+                vwoListView.setAdapter(vwoAdapter);
             }
 
             @Override
@@ -46,8 +48,7 @@ public class listTab extends Fragment{
 
             }
         });
-        ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,VWOArrayList);
-        vwoListView.setAdapter(vwoAdapter);
+
         return mView;
     }
     @Override

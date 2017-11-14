@@ -49,6 +49,8 @@ public class jobTab extends Fragment {
 
                     }
                 }
+                ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,JobArrayList);
+                jobListView.setAdapter(vwoAdapter);
             }
 
             @Override
@@ -56,9 +58,6 @@ public class jobTab extends Fragment {
 
             }
         });
-        //jobListView = (ListView) mView.findViewById(R.id.jobList);
-        ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,JobArrayList);
-        jobListView.setAdapter(vwoAdapter);
         return mView;
     }
     @Override
