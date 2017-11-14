@@ -54,8 +54,11 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
                 String EventDate = EditTextEventDate.getText().toString();
                 EventDate = EventDate +  ";" + EditTextEventTime.getText().toString();
                 String EventDescription = EditTextEventDescription.getText().toString();
-                Event newEvent = new Event(EventDate, EventDescription, newJobList);
+                String EventLocation = EditTextEventLocation.getText().toString();
+                Event newEvent = new Event(EventDate, EventDescription,EventLocation, newJobList);
                 VWOMgr.createEvent(EventName, newEvent);
+
+                //TO-DO Somehow the intent does not start
                 Intent intent = new Intent(EventCreator.this, JobCreator.class);
                 intent.putExtra("EventName", EventName);
                 startActivity(intent);
@@ -64,7 +67,8 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
         discardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(EventCreator.this, VWOView.class));
+                finish();
+                onBackPressed();
                 //Toast.makeText(this, "You click on discard button", Toast.LENGTH_LONG).show();
 
             }

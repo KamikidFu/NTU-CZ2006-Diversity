@@ -40,7 +40,6 @@ public class JobCreator extends AppCompatActivity implements View.OnClickListene
         EditTextJobAmountNeeded = findViewById(R.id.editTextVolunteerNeeded);
         EditTextJobName = findViewById(R.id.editTextJobName);
         EditTextJobDescription = findViewById(R.id.editTextJobDescription);
-
     }
 
     @Override
@@ -52,15 +51,20 @@ public class JobCreator extends AppCompatActivity implements View.OnClickListene
                 ArrayList<Volunteer> blankVolunteerList = new ArrayList<>();
                 String JobName = EditTextJobName.getText().toString();
                 String JobDescription = EditTextJobDescription.getText().toString();
-                int AmountNeeded = Integer.parseInt(EditTextJobAmountNeeded.getText().toString());
-                Job newJob = new Job(JobName, JobDescription, blankVolunteerList, AmountNeeded, AmountNeeded);
-                Bundle bundle = getIntent().getExtras();
-                String EventName = bundle.getString("EventName");
-                VWOMgr.addJobToEvent(newJob, EventName);
-                EditTextJobName.setText("");
-                EditTextJobDescription.setText("");
-                EditTextJobAmountNeeded.setText("");
-                Toast.makeText(JobCreator.this, "Job added", Toast.LENGTH_LONG).show();
+                if(tryParse(EditTextJobAmountNeeded.getText().toString())) {
+                    int AmountNeeded = Integer.parseInt(EditTextJobAmountNeeded.getText().toString());
+                    Job newJob = new Job(JobName, JobDescription, blankVolunteerList, AmountNeeded, AmountNeeded);
+                    Bundle bundle = getIntent().getExtras();
+                    String EventName = bundle.getString("EventName");
+                    VWOMgr.addJobToEvent(newJob, EventName);
+                    EditTextJobName.setText("");
+                    EditTextJobDescription.setText("");
+                    EditTextJobAmountNeeded.setText("");
+                    Toast.makeText(JobCreator.this, "Job added", Toast.LENGTH_LONG).show();
+                }else{
+                    EditTextJobAmountNeeded.setText("");
+                    Toast.makeText(JobCreator.this, "Wrong amount input", Toast.LENGTH_LONG).show();
+                }
             }
         });
         FinishButton.setOnClickListener(new View.OnClickListener() {
@@ -75,5 +79,14 @@ public class JobCreator extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
 
+    }
+
+    private boolean tryParse(String string){
+        try {
+            Integer.parseInt(string);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 }
