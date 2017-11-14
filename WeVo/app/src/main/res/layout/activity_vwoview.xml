@@ -42,13 +42,6 @@
                 android:text="Edit" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/eventLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_event"
-            android:textSize="24sp" />
-
         <Button
             android:id="@+id/addEventButton"
             android:layout_width="match_parent"
@@ -60,6 +53,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="log out" />
+
+        <TextView
+            android:id="@+id/eventLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_event"
+            android:textSize="24sp" />
 
         <ListView
             android:id="@+id/eventList"

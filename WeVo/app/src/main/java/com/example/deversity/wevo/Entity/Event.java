@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Event {
     private String date;
     private ArrayList<Job> JobList;
+    private VWO relatedVWO;
     private String description;
 
     public Event(String date, String description, ArrayList<Job> JobList) {
@@ -39,6 +40,14 @@ public class Event {
 
     public void setJobList(ArrayList<Job> newJobList) {
         this.JobList = newJobList;
+    }
+
+    public VWO getRelatedVWO() {
+        return this.relatedVWO;
+    }
+
+    public void setRelatedVWO(VWO newVWO) {
+        this.relatedVWO = newVWO;
     }
 
 }

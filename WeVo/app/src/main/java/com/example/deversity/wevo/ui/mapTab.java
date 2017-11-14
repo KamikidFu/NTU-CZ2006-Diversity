@@ -1,17 +1,18 @@
 package com.example.deversity.wevo.ui;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.deversity.wevo.Entity.VWO;
 import com.example.deversity.wevo.R;
 import com.example.deversity.wevo.mgr.VolunteerClientMgr;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,27 +22,21 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.maps.android.geojson.GeoJsonLayer;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * MapTab is a boundary class for showing VWOs on google map
  * @author John; Fu, Yunhao
  */
-public class mapTab extends Fragment {
+public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback {
 
     private GoogleMap mMap;
     private MapView mMapView;
     private View mView;
-    private GeoJsonLayer layer;
     private final static int PERMISSION_FINE_LOCATION = 101;
     private static List<MarkerOptions> VWOMarkerList = VolunteerClientMgr.getVWOMarkerList();
 
@@ -66,36 +61,44 @@ public class mapTab extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mMapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                mMap = googleMap;
-                LatLng Sg = new LatLng(1.350524, 103.815610);
-                CameraPosition target = CameraPosition.builder().target(Sg).zoom(10).build();
-                mMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
-                for(int i=0;i<VWOMarkerList.size();i++){
-                    mMap.addMarker(VWOMarkerList.get(i));
-                }
-
-                try {
-                    Log.d(TAG, "onMapReady: LAYER LOADING");
-                    layer = new GeoJsonLayer( mMap, R.raw.vwo, getActivity().getApplicationContext() );
-                    layer.addLayerToMap();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                mMap.getUiSettings().setZoomControlsEnabled(true);
-                mMap.getUiSettings().setMyLocationButtonEnabled(true);
-                mMap.getUiSettings().setAllGesturesEnabled(true);
-            }
-        });
-
-
+        mMapView.getMapAsync(this);
         return mView;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap = googleMap;
+        LatLng Sg = new LatLng(1.350524, 103.815610);
+        CameraPosition target = CameraPosition.builder().target(Sg).zoom(10).build();
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
+        for(MarkerOptions m:VWOMarkerList){
+            mMap.addMarker(m);
+        }
+
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setAllGesturesEnabled(true);
+
+        // Set a listener for info window events.
+        mMap.setOnInfoWindowClickListener(this);
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        for(MarkerOptions markerOptions: VWOMarkerList){
+            if(markerOptions.getTitle().equals(marker.getTitle())){
+                Intent intent = new Intent(getContext(), VWOView.class);
+                intent.putExtra("VWOName",marker.getTitle());
+                startActivity(intent);
+                try {
+                    finalize();
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+                return;
+            }
+        }
     }
 
     @Override
@@ -121,6 +124,8 @@ public class mapTab extends Fragment {
         super.onLowMemory();
         mMapView.onLowMemory();
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

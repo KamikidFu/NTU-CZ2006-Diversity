@@ -1,6 +1,7 @@
 package com.example.deversity.wevo.Entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Entity class for Job
