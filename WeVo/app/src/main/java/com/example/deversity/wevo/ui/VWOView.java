@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 /**
  * VWOView is boundary class for VWO Client
  * @author Teo;
@@ -39,8 +42,8 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
     private Button ButtonEditDescription;
     FirebaseUser USER = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference mRootView = FirebaseDatabase.getInstance().getReference();
-
-
+    DatabaseReference mVWORef = FirebaseDatabase.getInstance().getReference().child("VWO").child("id");
+    boolean VWOLogin = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,20 +56,48 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         addEventButton = (Button) findViewById(R.id.addEventButton);
         addEventButton.setOnClickListener((View.OnClickListener) this);
         eventListView=(ListView)findViewById(R.id.eventList);
-        mRootView.child("VWO").child("id").child(USER.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                TextViewVWOName.setText(dataSnapshot.child("name").getValue(String.class));
-                EditTextDescription.setText(dataSnapshot.child("description").getValue(String.class));
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        Intent intent = getIntent();
+        if(!intent.getStringExtra("VWOName").isEmpty()){
+            final String vwoName = intent.getStringExtra("VWOName");
+            VWOLogin = false;
+            mVWORef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()){
+                        if (VWOSnapshot.child("name").getValue(String.class).equals(vwoName)){
+                            TextViewVWOName.setText(dataSnapshot.child("name").getValue(String.class));
+                            EditTextDescription.setText(dataSnapshot.child("description").getValue(String.class));
+                        }
+                    }
+                }
 
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
 
-        ListAdapter vwoAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,placeholderEvents);
+            addEventButton.setVisibility(View.INVISIBLE);
+            ButtonEditDescription.setVisibility(View.INVISIBLE);
+            EditTextDescription.setEnabled(false);
+
+
+        }else {
+            VWOLogin=true;
+            mRootView.child("VWO").child("id").child(USER.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    TextViewVWOName.setText(dataSnapshot.child("name").getValue(String.class));
+                    EditTextDescription.setText(dataSnapshot.child("description").getValue(String.class));
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        ListAdapter vwoAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, placeholderEvents);
         eventListView.setAdapter(vwoAdapter);
     }
 
@@ -80,7 +111,22 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
                 VWOmgr.editDescription(EditTextDescription.getText().toString());
             }
         });
+        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    String eventName = eventListView.getAdapter().getItem(i).toString();
+                    Intent intent = new Intent(getApplicationContext(),EventCreator.class);
+                    intent.putExtra("EventName", eventName);
+                    if(VWOLogin)
+                        intent.putExtra("UserMode","VWO");
+                    else
+                        intent.putExtra("UserMode","Volunteer");
+                    startActivity(intent);
+            }
+        });
     }
+
+
 
     @Override
     public void onClick(View view) {

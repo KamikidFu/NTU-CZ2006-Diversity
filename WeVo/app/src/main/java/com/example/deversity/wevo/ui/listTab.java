@@ -1,10 +1,12 @@
 package com.example.deversity.wevo.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -25,16 +27,11 @@ public class listTab extends Fragment{
     private ListView vwoListView;
     DatabaseReference mVWORef = FirebaseDatabase.getInstance().getReference().child("VWO").child("id");
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         mView = inflater.inflate(R.layout.activity_listtab, container, false);
-        return mView;
-    }
-    @Override
-    public void onViewCreated(View view,  Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        vwoListView = (ListView) mView.findViewById(R.id.vwoList);
         mVWORef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -43,6 +40,8 @@ public class listTab extends Fragment{
                     if (VWOSnapshot.child("name").getValue(String.class) != null)
                         VWOArrayList.add(VWOSnapshot.child("name").getValue(String.class));
                 }
+                ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,VWOArrayList);
+                vwoListView.setAdapter(vwoAdapter);
             }
 
             @Override
@@ -50,9 +49,12 @@ public class listTab extends Fragment{
 
             }
         });
-        vwoListView = (ListView) mView.findViewById(R.id.vwoList);
-        ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,VWOArrayList);
-        vwoListView.setAdapter(vwoAdapter);
+
+        return mView;
+    }
+    @Override
+    public void onViewCreated(View view,  Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
 }

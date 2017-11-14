@@ -30,27 +30,27 @@ public class jobTab extends Fragment {
     private View mView;
     private ListView jobListView;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    DatabaseReference mJobRef = FirebaseDatabase.getInstance().getReference().child("Vol").child(user.getUid()).child("Jobs");
+    DatabaseReference mJobRef = FirebaseDatabase.getInstance().getReference().child("Vol").child("id").child(user.getUid()).child("Jobs");
     private ArrayList<String> JobArrayList= new ArrayList<>();
     String tempJob;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.activity_jobtab, container, false);
-        return mView;
-    }
-    @Override
-    public void onViewCreated(View view,  Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        jobListView = (ListView) mView.findViewById(R.id.jobList); // NEW
         mJobRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                JobArrayList= new ArrayList<>();
                 for (DataSnapshot JobSnapshot: dataSnapshot.getChildren()){
                     if (JobSnapshot.getValue() != null){
-                        tempJob = JobSnapshot.getValue().toString().split(";")[1];
+                        tempJob = JobSnapshot.getValue(String.class).split(";")[2];
                         JobArrayList.add(tempJob);
+
                     }
                 }
+                ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,JobArrayList);
+                jobListView.setAdapter(vwoAdapter);
             }
 
             @Override
@@ -58,8 +58,10 @@ public class jobTab extends Fragment {
 
             }
         });
-        jobListView = (ListView) mView.findViewById(R.id.jobList);
-        ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,JobArrayList);
-        jobListView.setAdapter(vwoAdapter);
+        return mView;
+    }
+    @Override
+    public void onViewCreated(View view,  Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 }
