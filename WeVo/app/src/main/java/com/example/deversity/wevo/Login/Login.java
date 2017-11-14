@@ -97,13 +97,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                     UserType = "VWO";
                             }
                             if (UserType.equals("VWO")){
-                                Toast.makeText(getApplicationContext(),"Welcome back! VWO!",Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(),"Welcome back! VWO!",Toast.LENGTH_LONG).show();
                                 Intent intent =new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VWOView.class);
                                 intent.putExtra("MODE","VWO");
                                 startActivity(intent);
                             }
                             else{
-                                Toast.makeText(getApplicationContext(),"Welcome back! Volunteer!",Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(),"Welcome back! Volunteer!",Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class);
                                 intent.putExtra("MODE","VOL");
                                 startActivity(intent);

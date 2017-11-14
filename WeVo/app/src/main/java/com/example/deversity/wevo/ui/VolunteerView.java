@@ -28,10 +28,10 @@ public final class VolunteerView extends AppCompatActivity {
 
     private SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
-    private static mapTab mapTab;
-    private static listTab listTab;
-    private static jobTab jobTab;
-    private static userTab userTab;
+    private mapTab mapTab;
+    private listTab listTab;
+    private jobTab jobTab;
+    private userTab userTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
