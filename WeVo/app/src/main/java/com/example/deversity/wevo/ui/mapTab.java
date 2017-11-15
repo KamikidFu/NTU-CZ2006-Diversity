@@ -76,11 +76,6 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.activity_maptab, container, false);
 
-        VolunteerClientMgr.addVWOMarker(1.3473497,103.6830713,"Nanyang Technological University Welfare Services Club");
-        VolunteerClientMgr.addVWOMarker(1.4293756,103.7710292,"Sports and Recreation");
-        VolunteerClientMgr.addVWOMarker(1.3194957,103.8270117,"The Netherlands Charity Association");
-        VolunteerClientMgr.addVWOMarker(1.2652194,103.81829,"The Singapore Branch Of The Missions To Seafarers");
-        VolunteerClientMgr.addVWOMarker(1.3516291,103.9476706,"BCSS - Tampines Youth Centre");
 
         mVWORef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -135,23 +130,6 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
 
 
-        mVWORef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                VWOArrayList = new ArrayList<>();
-                for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()){
-                    if (VWOSnapshot.child("name").getValue(String.class) != null)
-                        VWOArrayList.add(VWOSnapshot.child("name").getValue(String.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
         try {
 
             InputStream is = getResources().openRawResource(R.raw.vwo);
@@ -184,8 +162,10 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
 
 
                 for( j = 0; j < VWOArrayList.size(); j++ ) {
+                    
                     if( ((String)VWOArrayList.get(j)).equals( name )  ) {
                         marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red));
+                        VolunteerClientMgr.addVWOMarker(lat,lg,name);
                         break;
                     }
                 }
