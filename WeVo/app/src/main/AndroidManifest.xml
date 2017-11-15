@@ -41,7 +41,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBVk_M2klfl33g0WouMh-FIMn8UvMC2i58" />
 
-        <activity android:name=".ui.activity_volunteer_vwo_view"></activity>
+        <activity android:name=".ui.activity_volunteer_vwo_view" />
+        <activity android:name=".ui.volunteer_vwo_event"></activity>
     </application>
 
 </manifest>

@@ -3,6 +3,8 @@ package com.example.deversity.wevo.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -24,7 +26,6 @@ public class activity_volunteer_vwo_view extends AppCompatActivity {
     private ArrayList<String> EventsArrayList;
     private String VWOID;
     private TextView VWOName;
-    private TextView VWODes;
     private String[] tempEvent = new String[1];
     DatabaseReference mRootView = FirebaseDatabase.getInstance().getReference();
 
@@ -35,7 +36,6 @@ public class activity_volunteer_vwo_view extends AppCompatActivity {
         eventListView = findViewById(R.id.volVWOEventList);
         EventsArrayList = new ArrayList<>();
         VWOName=findViewById(R.id.volVWONameLabel);
-        VWODes = findViewById(R.id.volVWODescription);
 
         Intent intent = getIntent();
         final String name = intent.getStringExtra("VWOName");
@@ -49,10 +49,9 @@ public class activity_volunteer_vwo_view extends AppCompatActivity {
                         VWOID = VWOSnapshot.getKey();
                     }
                 }
-                VWODes.setText(dataSnapshot.child(VWOID).child("description").getValue(String.class));
                 for (DataSnapshot EventSnapshot : dataSnapshot.child(VWOID).child("Events").getChildren()){
                     if (EventSnapshot.getValue() != null){
-                        tempEvent[0] = EventSnapshot.getKey() + "\n" + EventSnapshot.child("location").getValue(String.class) + "\n" + EventSnapshot.child("date").getValue(String.class) + "\n" + EventSnapshot.child("description").getValue(String.class);
+                        tempEvent[0] = EventSnapshot.getKey();
                         EventsArrayList.add( tempEvent[0] );
                     }
                 }
@@ -64,6 +63,19 @@ public class activity_volunteer_vwo_view extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String eventName = adapterView.getItemAtPosition(i).toString();
+                if(eventName!=null){
+                    Intent intentToEvent = new Intent(getApplicationContext(),volunteer_vwo_event.class);
+                    intentToEvent.putExtra("EventName",eventName);
+                    intentToEvent.putExtra("VWOID",VWOID);
+                    startActivity(intentToEvent);
+                }
             }
         });
     }
