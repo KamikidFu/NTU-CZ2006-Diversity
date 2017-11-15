@@ -55,13 +55,14 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
                 EventDate = EventDate +  ";" + EditTextEventTime.getText().toString();
                 String EventDescription = EditTextEventDescription.getText().toString();
                 String EventLocation = EditTextEventLocation.getText().toString();
-                Event newEvent = new Event(EventDate, EventDescription,EventLocation, newJobList);
-                VWOMgr.createEvent(EventName, newEvent);
 
-                //TO-DO Somehow the intent does not start
-                Intent intent = new Intent(EventCreator.this, JobCreator.class);
+                //TODO Somehow the intent does not start
+                Intent intent = new Intent(getApplicationContext(), JobCreator.class);
                 intent.putExtra("EventName", EventName);
                 startActivity(intent);
+
+                Event newEvent = new Event(EventDate, EventDescription,EventLocation, newJobList);
+                VWOMgr.createEvent(EventName, newEvent);
             }
         });
         discardButton.setOnClickListener(new View.OnClickListener() {

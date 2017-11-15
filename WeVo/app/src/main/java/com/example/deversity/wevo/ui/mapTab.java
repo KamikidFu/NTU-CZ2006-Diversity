@@ -268,6 +268,7 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
                     volunteerClientMgr.getShowVWOMgr().setSelectedVWOName("");
                     volunteerClientMgr.getShowVWOMgr().setSelectedEventName("");
                     volunteerClientMgr.getShowVWOMgr().setSelectedJobName("");
+                    Toast.makeText(getContext(), "Data clean!", Toast.LENGTH_SHORT).show();
                 }
         }
     }

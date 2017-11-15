@@ -82,6 +82,7 @@ public class listTab extends Fragment{
                     volunteerClientMgr.getShowVWOMgr().setSelectedVWOName("");
                     volunteerClientMgr.getShowVWOMgr().setSelectedEventName("");
                     volunteerClientMgr.getShowVWOMgr().setSelectedJobName("");
+                    Toast.makeText(getContext(), "Data clean!", Toast.LENGTH_SHORT).show();
                 }
         }
     }
