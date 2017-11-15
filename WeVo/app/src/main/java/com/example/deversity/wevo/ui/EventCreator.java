@@ -42,49 +42,39 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
         EditTextEventLocation = findViewById(R.id.editTextEventLocation);
         EditTextEventName = findViewById(R.id.editTextEventName);
         EditTextEventTime = findViewById(R.id.editTextEventTime);
-
-        submitButton.setOnClickListener( this );
-        discardButton.setOnClickListener( this );
-
     }
 
     public void onStart(){
         super.onStart();
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Job> newJobList = new ArrayList<>();
+                String EventName = EditTextEventName.getText().toString();
+                String EventDate = EditTextEventDate.getText().toString();
+                EventDate = EventDate +  ";" + EditTextEventTime.getText().toString();
+                String EventDescription = EditTextEventDescription.getText().toString();
+                String EventLocation = EditTextEventLocation.getText().toString();
+                Event newEvent = new Event(EventDate, EventDescription,EventLocation, newJobList);
+                VWOMgr.createEvent(EventName, newEvent);
+
+                //TO-DO Somehow the intent does not start
+                Intent intent = new Intent(EventCreator.this, JobCreator.class);
+                intent.putExtra("EventName", EventName);
+                startActivity(intent);
+            }
+        });
+        discardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
-    public String createEvent()
-    {
-        ArrayList<Job> newJobList = new ArrayList<>();
-        String EventName = EditTextEventName.getText().toString();
-        String EventDate = EditTextEventDate.getText().toString();
-        EventDate = EventDate +  ";" + EditTextEventTime.getText().toString();
-        String EventDescription = EditTextEventDescription.getText().toString();
-        Event newEvent = new Event(EventName, EventDate, EventDescription, newJobList);
-        VWOMgr.createEvent(EventName, newEvent);
-
-        return EventName;
-
-    }
     @Override
     public void onClick(View view) {
 
-        if (view == submitButton) {
-
-            String EventName = createEvent();
-
-            Intent intent = new Intent( this, VWOView.class ) ;
-            intent.putExtra("MODE","VWO");
-            //finish();
-
-            startActivity( intent );
-        }
-        if (view == discardButton ) {
-            //will open login activity
-            Intent intent = new Intent( this, VWOView.class ) ;
-            intent.putExtra("MODE","VWO");
-            //finish();
-
-            startActivity( intent );
-        }
     }
 }
