@@ -194,8 +194,6 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
 
                 int color = getResources().getColor(R.color.colorRed);
 
-                Log.d("COLOOORS", "COLOR ID =" + colorId + "  COOLOOOR = " + color);
-
                 if (colorId == color) {
                     listElement.setBackgroundColor(0x000);
                     volMngr.deleteEvent(listElement.getText().toString().trim());
@@ -214,6 +212,6 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        
+
     }
 }
