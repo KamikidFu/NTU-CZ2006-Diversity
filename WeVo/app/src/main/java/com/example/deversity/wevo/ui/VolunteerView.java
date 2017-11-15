@@ -55,7 +55,7 @@ public final class VolunteerView extends AppCompatActivity {
         SectionsPagerAdapter msectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         msectionsPagerAdapter.addFragment(mapTab, "MAP");
         msectionsPagerAdapter.addFragment(listTab,"VWO");
-        msectionsPagerAdapter.addFragment(jobTab,"JOB");
+        msectionsPagerAdapter.addFragment(jobTab,"EVENTS");
         msectionsPagerAdapter.addFragment(userTab,"USER");
         viewPager.setAdapter(msectionsPagerAdapter);
     }
