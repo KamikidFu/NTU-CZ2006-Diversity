@@ -2,6 +2,7 @@ package com.example.deversity.wevo.mgr;
 
 import android.widget.ListView;
 
+import com.example.deversity.wevo.Entity.Event;
 import com.example.deversity.wevo.Entity.Volunteer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -11,7 +12,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Control class for Volunteer Client
@@ -31,6 +34,18 @@ public class VolunteerClientMgr {
         if(VWOMarkerList!=null){
             VWOMarkerList.add(new MarkerOptions().position(new LatLng(Latitude,Longitude)).title(title));
         }
+    }
+
+    public void createEvent(String EventName){
+        Map<String, Object> EventData = new HashMap<>();
+        EventData.put(EventName, EventName);
+        mRootRef.child("Vol").child("id").child(USER.getUid()).child("Events").updateChildren(EventData);
+    }
+
+    public void deleteEvent(String EventName){
+        Map<String, Object> EventData = new HashMap<>();
+        EventData.put(EventName, EventName);
+        mRootRef.child("Vol").child("id").child(USER.getUid()).child("Events").child(EventName).removeValue();
     }
 
     public static List<MarkerOptions> getVWOMarkerList() {
