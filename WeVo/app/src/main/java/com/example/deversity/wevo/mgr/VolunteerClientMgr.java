@@ -27,7 +27,7 @@ public class VolunteerClientMgr {
     private static List<MarkerOptions> VWOMarkerList = new ArrayList<>();
     private Volunteer user;
     private ShowVWOMgr VWOMgr;
-
+    private String pushId;
 
 
     public static void addVWOMarker(double Latitude, double Longitude,String title){
@@ -39,13 +39,12 @@ public class VolunteerClientMgr {
     public void createEvent(String EventName){
         Map<String, Object> EventData = new HashMap<>();
         EventData.put(EventName, EventName);
-        mRootRef.child("Vol").child("id").child(USER.getUid()).child("Events").updateChildren(EventData);
+        pushId = mRootRef.child("Vol").child("id").child(USER.getUid()).child("Events").push().getKey();
+        mRootRef.child("Vol").child("id").child(USER.getUid()).child("Events").child(pushId).setValue(EventName);
     }
 
     public void deleteEvent(String EventName){
-        Map<String, Object> EventData = new HashMap<>();
-        EventData.put(EventName, EventName);
-        mRootRef.child("Vol").child("id").child(USER.getUid()).child("Events").child(EventName).removeValue();
+        mRootRef.child("Vol").child("id").child(USER.getUid()).child("Events").child(pushId).setValue(null);
     }
 
     public static List<MarkerOptions> getVWOMarkerList() {

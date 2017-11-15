@@ -170,7 +170,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                     if (user != null) {
                                         // TODO: Change between VWO and Volunteer, add Name, remove Password, add description
-                                        ArrayList<Job> startingJob = new ArrayList<>();
+                                        ArrayList<String> startingJob = new ArrayList<>();
                                         Volunteer newVolunteer = new Volunteer(name, user.getEmail(), "password", description, startingJob);
                                         Map<String, Object> volunteerData = new HashMap<>();
                                         volunteerData.put(user.getUid(), newVolunteer);

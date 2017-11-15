@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -180,18 +181,25 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                int colorId = -1;
                 TextView listElement = (TextView) view;
-                listElement.setBackgroundResource( R.color.colorWhite );
-                ColorDrawable buttonColor = (ColorDrawable)listElement.getBackground();
 
-                int colorId = buttonColor.getColor();
 
-                if ( colorId == R.color.colorRed ) {
-                    listElement.setBackgroundResource( R.color.colorWhite );
-                    volMngr.deleteEvent( (String) listElement.getText() );
-                } else if ( colorId == R.color.colorWhite ){
+                ColorDrawable buttonColor = (ColorDrawable)view.getBackground();
+                if( buttonColor != null )
+                    colorId = buttonColor.getColor();
+
+                int color = getResources().getColor(R.color.colorRed);
+
+                Log.d("COLOOORS", "COLOR ID =" + colorId + "  COOLOOOR = " + color );
+
+                if ( colorId == color ) {
+                    listElement.setBackgroundColor( 0x000 );
+                    volMngr.deleteEvent( listElement.getText().toString().trim()  );
+
+                } else {
                     listElement.setBackgroundResource( R.color.colorRed  );
-                    //volMngr.createEvent( (String) listElement.getText() );
+                    volMngr.createEvent( listElement.getText().toString().trim() );
                 }
             }
         });
