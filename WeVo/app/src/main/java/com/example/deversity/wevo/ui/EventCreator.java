@@ -57,6 +57,8 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
                 String EventLocation = EditTextEventLocation.getText().toString();
                 Event newEvent = new Event(EventDate, EventDescription,EventLocation, newJobList);
                 VWOMgr.createEvent(EventName, newEvent);
+
+                //TO-DO Somehow the intent does not start
                 Intent intent = new Intent(EventCreator.this, JobCreator.class);
                 intent.putExtra("EventName", EventName);
                 startActivity(intent);
@@ -64,6 +66,7 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
         });
         discardButton.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
                 onBackPressed();
             }

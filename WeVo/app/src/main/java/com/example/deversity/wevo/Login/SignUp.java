@@ -33,6 +33,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Combined boundary and control class for sign up
@@ -50,6 +52,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth firebaseAuth;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static boolean validate(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
+        return matcher.find();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -85,6 +94,34 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         String password = editTextPassword.getText().toString().trim();
         final String name = editTextName.getText().toString().trim();
         final String description = editTextDescription.getText().toString().trim();
+
+        if(password.toCharArray().length>4 && password.toCharArray().length<19){
+            //The length of password is wrong
+            Toast.makeText(this, "Please input 5 to 18 characters for password", Toast.LENGTH_SHORT).show();
+            //stopping the execution
+            return;
+        }
+
+        if(!(validate(email))){
+            //The length of password is wrong
+            Toast.makeText(this, "Please input right email address", Toast.LENGTH_SHORT).show();
+            //stopping the execution
+            return;
+        }
+
+        if(!name.matches("[a-zA-Z]")){
+            //The length of password is wrong
+            Toast.makeText(this, "Please only input English characters", Toast.LENGTH_SHORT).show();
+            //stopping the execution
+            return;
+        }
+
+        if(description.toCharArray().length<129){
+            //The length of password is wrong
+            Toast.makeText(this, "Description exceeds 128 characters", Toast.LENGTH_SHORT).show();
+            //stopping the execution
+            return;
+        }
 
         if (TextUtils.isEmpty(email)) {
             //email is empty

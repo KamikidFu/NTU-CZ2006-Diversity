@@ -9,15 +9,21 @@ import java.util.ArrayList;
 public class Event {
     private String date;
     private ArrayList<Job> JobList;
-    private VWO relatedVWO;
     private String description;
     private String location;
 
-    public Event(String date, String description,String location, ArrayList<Job> JobList) {
+
+    public Event(String date, String description, String location, ArrayList<Job> JobList) {
+	EventModification
         this.date=date;
         this.description=description;
         this.location=location;
         this.JobList=JobList;
+        this.location=location;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     public String getDate(){
@@ -42,14 +48,6 @@ public class Event {
 
     public void setJobList(ArrayList<Job> newJobList) {
         this.JobList = newJobList;
-    }
-
-    public VWO getRelatedVWO() {
-        return this.relatedVWO;
-    }
-
-    public void setRelatedVWO(VWO newVWO) {
-        this.relatedVWO = newVWO;
     }
 
 }

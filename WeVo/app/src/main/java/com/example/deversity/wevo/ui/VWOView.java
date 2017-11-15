@@ -65,16 +65,16 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
             String mode = intent.getStringExtra("MODE");
             if(mode.matches("VOL")) {
                 //VWOLog=false;
-                //TO-DO Volunteer visit
+                //TODO Volunteer visit
                 String name = intent.getStringExtra("VWOName");
                 Toast.makeText(getApplicationContext(),"Welcome to "+name,Toast.LENGTH_SHORT).show();
-                //TO-DO Search the database with the name and put the data into this view
+                //TODO Search the database with the name and put the data into this view
 
                 TextViewVWOName.setText(name);
                 ListAdapter vwoAdapter = new ArrayAdapter<String>(VWOView.this, android.R.layout.simple_list_item_1, placeholderEvents);
                 eventListView.setAdapter(vwoAdapter);
 
-                //TO-DO Set visibility for each button that only VWO can use
+                //TODO Set visibility for each button that only VWO can use
                 ButtonLogOut.setVisibility(View.INVISIBLE);
                 ButtonEditDescription.setVisibility(View.INVISIBLE);
                 addEventButton.setVisibility(View.INVISIBLE);
