@@ -25,12 +25,17 @@ public class VolunteerClientMgr {
     private FirebaseUser USER = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private static List<MarkerOptions> VWOMarkerList = new ArrayList<>();
+
     private Volunteer user;
     private ShowVWOMgr VWOMgr;
     private String pushId;
 
 
-    public static void addVWOMarker(double Latitude, double Longitude,String title){
+
+    private final ShowVWOMgr ShowVWOMgr = new ShowVWOMgr();
+
+    public void addVWOMarker(double Latitude, double Longitude,String title){
+
         if(VWOMarkerList!=null){
             VWOMarkerList.add(new MarkerOptions().position(new LatLng(Latitude,Longitude)).title(title));
         }
@@ -63,9 +68,15 @@ public class VolunteerClientMgr {
     }
 
     public void applyJob(){
+        //TODO apply for a job, find the related job in firebase from the VWO. Then, add this volunteer to the Volunteer list
 
     }
-    public void showJob(ListView listView){
 
+    public void showJob(ListView listView){
+        //TODO Show the job reference which are in firebase
+    }
+
+    public ShowVWOMgr getShowVWOMgr() {
+        return ShowVWOMgr;
     }
 }

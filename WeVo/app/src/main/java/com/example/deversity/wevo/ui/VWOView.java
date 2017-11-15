@@ -49,8 +49,9 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
     FirebaseUser USER;
     DatabaseReference mRootView = FirebaseDatabase.getInstance().getReference();
     private String VWOID;
+    private static int defaultColor;
     private String[] tmp = new String[1];
-    //private boolean VWOLog = false;
+    private static boolean VWOLog = false;
 
 
 
@@ -73,7 +74,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         if(!intent[0].getStringExtra("MODE").isEmpty()) {
             String mode = intent[0].getStringExtra("MODE");
             if(mode.matches("VOL")) {
-                //VWOLog=false;
+                VWOLog=false;
                 //TODO Volunteer visit
                 final String name = intent[0].getStringExtra("VWOName");
                 Toast.makeText(getApplicationContext(),"Welcome to "+name,Toast.LENGTH_SHORT).show();
@@ -117,7 +118,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
                 addEventButton.setText("");
                 EditTextDescription.setEnabled(false);
             }else {
-                //VWOLog=true;
+                VWOLog=true;
                 USER = FirebaseAuth.getInstance().getCurrentUser();
                 //TODO VWO user log in
                 mRootView.child("VWO").child("id").child(USER.getUid()).addValueEventListener(new ValueEventListener() {
@@ -146,10 +147,11 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
             startActivity(new Intent(this, Login.class));
             finish();
         }
+        defaultColor = eventListView.getSolidColor();
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         final VWOClientMgr VWOmgr = new VWOClientMgr();
         final VolunteerClientMgr volMngr = new VolunteerClientMgr();
@@ -165,7 +167,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         ButtonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Log you out", Toast.LENGTH_SHORT ).show();
+                Toast.makeText(getApplicationContext(), "Log you out", Toast.LENGTH_SHORT).show();
                 VWOmgr.logOut();
                 startActivity(new Intent(VWOView.this, Login.class));
                 try {
@@ -181,35 +183,37 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
                 int colorId = -1;
                 TextView listElement = (TextView) view;
 
 
-                ColorDrawable buttonColor = (ColorDrawable)view.getBackground();
-                if( buttonColor != null )
+                ColorDrawable buttonColor = (ColorDrawable) view.getBackground();
+                if (buttonColor != null)
                     colorId = buttonColor.getColor();
 
                 int color = getResources().getColor(R.color.colorRed);
 
-                Log.d("COLOOORS", "COLOR ID =" + colorId + "  COOLOOOR = " + color );
+                Log.d("COLOOORS", "COLOR ID =" + colorId + "  COOLOOOR = " + color);
 
-                if ( colorId == color ) {
-                    listElement.setBackgroundColor( 0x000 );
-                    volMngr.deleteEvent( listElement.getText().toString().trim()  );
+                if (colorId == color) {
+                    listElement.setBackgroundColor(0x000);
+                    volMngr.deleteEvent(listElement.getText().toString().trim());
 
                 } else {
-                    listElement.setBackgroundResource( R.color.colorRed  );
-                    volMngr.createEvent( listElement.getText().toString().trim() );
+                    listElement.setBackgroundResource(R.color.colorRed);
+                    volMngr.createEvent(listElement.getText().toString().trim());
+
                 }
+
             }
+
         });
+
     }
 
     @Override
-    public void onClick(View view) {
-        if(view == addEventButton){
-            startActivity(new Intent(this, EventCreator.class));
-            Log.d("Its okay", "onClickView() is working");
-        }
+    public void onClick(View v) {
+        
     }
 }
