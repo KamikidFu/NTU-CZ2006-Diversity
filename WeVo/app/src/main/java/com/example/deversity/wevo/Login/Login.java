@@ -177,13 +177,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     Intent intent =new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VWOView.class);
                     intent.putExtra("MODE","VWO");
                     startActivity(intent);
-                    return;
                 }
             }
         });
 
-        progressBar.setVisibility(View.INVISIBLE);
-        Toast.makeText(getApplicationContext(),"Incorrect user input!",Toast.LENGTH_LONG).show();
     }
 
     @Override
