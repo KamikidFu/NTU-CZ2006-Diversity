@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.deversity.wevo.R;
+import com.example.deversity.wevo.mgr.VolunteerClientMgr;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,13 +22,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class listTab extends Fragment{
     private View mView;
     private ArrayList<String> VWOArrayList = new ArrayList<>();
     private ListView vwoListView;
     DatabaseReference mVWORef = FirebaseDatabase.getInstance().getReference().child("VWO").child("id");
-
+    private final VolunteerClientMgr volunteerClientMgr = VolunteerView.getVolunteerMgr();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -61,6 +64,7 @@ public class listTab extends Fragment{
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String vwoName = adapterView.getItemAtPosition(i).toString();
                 if(vwoName!=null){
+                    volunteerClientMgr.getShowVWOMgr().setSelectedVWOName(vwoName);
                     Toast.makeText(getContext(),"Visit "+vwoName,Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), VWOView.class);
                     intent.putExtra("MODE","VOL");
@@ -70,5 +74,15 @@ public class listTab extends Fragment{
             }
         });
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 1:
+                if(resultCode == RESULT_OK){
+                    volunteerClientMgr.getShowVWOMgr().setSelectedVWOName("");
+                    volunteerClientMgr.getShowVWOMgr().setSelectedEventName("");
+                    volunteerClientMgr.getShowVWOMgr().setSelectedJobName("");
+                }
+        }
+    }
 }
