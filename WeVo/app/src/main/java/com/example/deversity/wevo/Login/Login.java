@@ -138,13 +138,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         if(password.toCharArray().length<5 && password.toCharArray().length>18){
             //The length of password is wrong
-            Toast.makeText(this, "Auth Failed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Authentication Failed!", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
         if(!email.contains("@")&&!email.contains(".")){
             //The length of password is wrong
-            Toast.makeText(this, "Auth Failed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Authentication Failed!", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
