@@ -1,10 +1,14 @@
 package com.example.deversity.wevo.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +20,7 @@ import android.widget.Toast;
 import com.example.deversity.wevo.Login.Login;
 import com.example.deversity.wevo.R;
 import com.example.deversity.wevo.mgr.VWOClientMgr;
+import com.example.deversity.wevo.mgr.VolunteerClientMgr;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +48,8 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
     FirebaseUser USER;
     DatabaseReference mRootView = FirebaseDatabase.getInstance().getReference();
     private String VWOID;
+    private static int defaultColor;
+    private String[] tmp = new String[1];
     private static boolean VWOLog = false;
 
 
@@ -61,13 +68,14 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         eventListView=(ListView)findViewById(R.id.eventList);
         EventsArrayList = new ArrayList<>();
 
-        Intent intent = getIntent();
-        if(!intent.getStringExtra("MODE").isEmpty()) {
-            String mode = intent.getStringExtra("MODE");
+
+        final Intent[] intent = {getIntent()};
+        if(!intent[0].getStringExtra("MODE").isEmpty()) {
+            String mode = intent[0].getStringExtra("MODE");
             if(mode.matches("VOL")) {
                 VWOLog=false;
                 //TODO Volunteer visit
-                final String name = intent.getStringExtra("VWOName");
+                final String name = intent[0].getStringExtra("VWOName");
                 Toast.makeText(getApplicationContext(),"Welcome to "+name,Toast.LENGTH_SHORT).show();
                 //TODO Search the database with the name and put the data into this view
                 mRootView.child("VWO").child("id").addValueEventListener(new ValueEventListener() {
@@ -81,7 +89,8 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
                         EditTextDescription.setText(dataSnapshot.child(VWOID).child("description").getValue(String.class));
                         for (DataSnapshot EventSnapshot : dataSnapshot.child(VWOID).child("Events").getChildren()){
                             if (EventSnapshot.getValue() != null){
-                                EventsArrayList.add(EventSnapshot.getKey());
+                                tmp[0] = EventSnapshot.getKey() + "\n" + EventSnapshot.child("location").getValue(String.class) + "\n" + EventSnapshot.child("date").getValue(String.class) + "\n" + EventSnapshot.child("description").getValue(String.class);
+                                EventsArrayList.add( tmp[0] );
                             }
                         }
                         ListAdapter vwoAdapter = new ArrayAdapter<String>(VWOView.this, android.R.layout.simple_list_item_1, EventsArrayList);
@@ -101,8 +110,11 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
 
                 //TODO Set visibility for each button that only VWO can use
                 ButtonLogOut.setVisibility(View.INVISIBLE);
+                ButtonLogOut.setText("");
                 ButtonEditDescription.setVisibility(View.INVISIBLE);
+                ButtonEditDescription.setText("");
                 addEventButton.setVisibility(View.INVISIBLE);
+                addEventButton.setText("");
                 EditTextDescription.setEnabled(false);
             }else {
                 VWOLog=true;
@@ -115,7 +127,8 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
                         EditTextDescription.setText(dataSnapshot.child("description").getValue(String.class));
                         for (DataSnapshot EventSnapshot : dataSnapshot.child("Events").getChildren()) {
                             if (EventSnapshot.getValue() != null) {
-                                EventsArrayList.add(EventSnapshot.getKey());
+                                tmp[0] = EventSnapshot.getKey() + "\n" + EventSnapshot.child("location").getValue(String.class) + "\n" + EventSnapshot.child("date").getValue(String.class) + "\n" + EventSnapshot.child("description").getValue(String.class);
+                                EventsArrayList.add( tmp[0] );
                             }
                         }
                         ListAdapter vwoAdapter = new ArrayAdapter<String>(VWOView.this, android.R.layout.simple_list_item_1, EventsArrayList);
@@ -133,12 +146,14 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
             startActivity(new Intent(this, Login.class));
             finish();
         }
+        defaultColor = eventListView.getSolidColor();
     }
 
     @Override
     public void onStart(){
         super.onStart();
         final VWOClientMgr VWOmgr = new VWOClientMgr();
+        final VolunteerClientMgr volMngr = new VolunteerClientMgr();
 
         //Edit button click listener
         ButtonEditDescription.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +178,12 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         });
 
         //Event list listener
+        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
 
     @Override

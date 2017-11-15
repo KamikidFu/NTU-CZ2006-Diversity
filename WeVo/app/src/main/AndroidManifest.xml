@@ -17,32 +17,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light">
-
         <activity
             android:name=".ui.VolunteerView"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity android:name=".Login.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Login.SignUp" />
-
         <activity
             android:name=".ui.VWOView"
-            android:launchMode="singleTop"/>
-
-        <activity android:name=".ui.EventCreator"/>
-        <activity android:name=".ui.JobCreator"/>
-        <activity android:name=".ui.JobDetails"/>
+            android:launchMode="singleTop" />
+        <activity android:name=".ui.EventCreator" />
+        <activity android:name=".ui.JobCreator" />
+        <activity android:name=".ui.JobDetails" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBVk_M2klfl33g0WouMh-FIMn8UvMC2i58" />
+
+        <activity android:name=".ui.activity_volunteer_vwo_view"></activity>
     </application>
 
 </manifest>

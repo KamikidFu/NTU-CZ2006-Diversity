@@ -197,8 +197,8 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
         for(MarkerOptions markerOptions: VWOMarkerList){
             if(markerOptions.getTitle().equals(marker.getTitle())){
                 volunteerClientMgr.getShowVWOMgr().setSelectedVWOName(marker.getTitle());
-                Intent intent = new Intent(getContext(), VWOView.class);
-                intent.putExtra("MODE","VOL");
+                Intent intent = new Intent(getContext(), activity_volunteer_vwo_view.class);
+                //intent.putExtra("MODE","VOL");
                 intent.putExtra("VWOName",marker.getTitle());
                 startActivity(intent);
                 Toast.makeText(getContext(),"Visit "+marker.getTitle(),Toast.LENGTH_SHORT).show();

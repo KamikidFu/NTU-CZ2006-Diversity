@@ -62,8 +62,8 @@ public class listTab extends Fragment{
                 String vwoName = adapterView.getItemAtPosition(i).toString();
                 if(vwoName!=null){
                     Toast.makeText(getContext(),"Visit "+vwoName,Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getContext(), VWOView.class);
-                    intent.putExtra("MODE","VOL");
+                    Intent intent = new Intent(getContext(), activity_volunteer_vwo_view.class);
+                    //intent.putExtra("MODE","VOL");
                     intent.putExtra("VWOName",vwoName);
                     startActivity(intent);
                 }
