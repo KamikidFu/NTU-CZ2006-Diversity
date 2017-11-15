@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import com.example.deversity.wevo.Entity.VWO;
@@ -26,15 +28,30 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.geojson.GeoJsonFeature;
+import com.google.maps.android.geojson.GeoJsonGeometry;
 import com.google.maps.android.geojson.GeoJsonLayer;
 import com.google.maps.android.geojson.GeoJsonPointStyle;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -48,9 +65,11 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
     private GoogleMap mMap;
     private MapView mMapView;
     private View mView;
+    private ArrayList<String> VWOArrayList = new ArrayList<>();
     private GeoJsonLayer layer;
     private final static int PERMISSION_FINE_LOCATION = 101;
     private static List<MarkerOptions> VWOMarkerList = VolunteerClientMgr.getVWOMarkerList();
+    DatabaseReference mVWORef = FirebaseDatabase.getInstance().getReference().child("VWO").child("id");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,10 +82,28 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
         VolunteerClientMgr.addVWOMarker(1.2652194,103.81829,"The Singapore Branch Of The Missions To Seafarers");
         VolunteerClientMgr.addVWOMarker(1.3516291,103.9476706,"BCSS - Tampines Youth Centre");
 
+        mVWORef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                VWOArrayList = new ArrayList<>();
+                for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()){
+                    if (VWOSnapshot.child("name").getValue(String.class) != null)
+                        VWOArrayList.add(VWOSnapshot.child("name").getValue(String.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         mMapView = (MapView) mView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume();
+
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -79,40 +116,98 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        MarkerOptions marker;
+        JSONObject reader;
+        JSONObject vwo;
+        JSONArray features = null;
+        JSONArray coordinates = null;
+        JSONObject geometry = null;
+        JSONObject properties;
+        double lg, lat;
+        int j;
+        String name;
+
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap = googleMap;
         LatLng Sg = new LatLng(1.350524, 103.815610);
         CameraPosition target = CameraPosition.builder().target(Sg).zoom(10).build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
-        for(MarkerOptions m:VWOMarkerList){
-            mMap.addMarker(m);
-        }
 
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mMap.getUiSettings().setAllGesturesEnabled(true);
+
+        mVWORef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                VWOArrayList = new ArrayList<>();
+                for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()){
+                    if (VWOSnapshot.child("name").getValue(String.class) != null)
+                        VWOArrayList.add(VWOSnapshot.child("name").getValue(String.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         try {
-            layer = new GeoJsonLayer( mMap, R.raw.vwo, getActivity().getApplicationContext() );
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            InputStream is = getResources().openRawResource(R.raw.vwo);
+            Writer writer = new StringWriter();
+            char[] buffer = new char[1024];
+            Reader read = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            int n;
+            while ((n = read.read(buffer)) != -1) {
+                writer.write(buffer, 0, n);
+            }
+
+            is.close();
+            String jsonString = writer.toString();
+
+
+
+            reader = new JSONObject( jsonString );
+            features = reader.getJSONArray("features");
+
+            for( int i = 0; i < features.length(); i++ ) {
+
+                    vwo = features.getJSONObject( i+2 );
+                    properties = vwo.getJSONObject("properties");
+                    name = properties.getString("Name");
+                    geometry = vwo.getJSONObject("geometry");
+                    coordinates = geometry.getJSONArray("coordinates");
+                    lat = coordinates.getDouble(1);
+                    lg = coordinates.getDouble(0);
+                    marker = new MarkerOptions().position(new LatLng(lat, lg)).title( name );
+
+
+                for( j = 0; j < VWOArrayList.size(); j++ ) {
+                    if( ((String)VWOArrayList.get(j)).equals( name )  ) {
+                        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red));
+                        break;
+                    }
+                }
+                if( j == VWOArrayList.size() )
+                    marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_blue));
+
+                mMap.addMarker(marker);
+
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        for (GeoJsonFeature feature : layer.getFeatures()) {
-            if (feature.hasProperty( "Name" )) {
-                String name = feature.getProperty("Name");
-            }
-        }
-
-        layer.addLayerToMap();
-
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setAllGesturesEnabled(true);
-        // Set a listener for info window events.
+
         mMap.setOnInfoWindowClickListener(this);
     }
 
