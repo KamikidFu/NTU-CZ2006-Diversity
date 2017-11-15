@@ -48,7 +48,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
     FirebaseUser USER;
     DatabaseReference mRootView = FirebaseDatabase.getInstance().getReference();
     private String VWOID;
-    
+
     private String[] tmp = new String[1];
     private static boolean VWOLog = false;
 
