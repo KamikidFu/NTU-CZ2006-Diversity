@@ -3,7 +3,7 @@
     <string name="action_user">User</string>
     <string name="action_map">Map</string>
     <string name="action_list">List</string>
-    <string name="action_jobs">Jobs</string>
+    <string name="action_jobs">Event</string>
     <string name="enter_your_description">Description</string>
     <string name="add_event_button">ADD EVENT</string>
     <string name="label_event">Event</string>

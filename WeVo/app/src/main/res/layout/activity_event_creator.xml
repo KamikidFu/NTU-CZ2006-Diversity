@@ -99,7 +99,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:background="#00ff00"
-                android:text="Okay"
+                android:text="Create Event"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintRight_toLeftOf="@+id/discardButton" />
 
@@ -119,10 +119,5 @@
 
         </LinearLayout>
 
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/JobListInEventCreator">
-        </ListView>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
