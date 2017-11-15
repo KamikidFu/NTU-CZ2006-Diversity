@@ -15,6 +15,7 @@ import android.widget.TableLayout;
 
 import com.example.deversity.wevo.R;
 import com.example.deversity.wevo.mgr.SectionsPagerAdapter;
+import com.example.deversity.wevo.mgr.VolunteerClientMgr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public final class VolunteerView extends AppCompatActivity {
     private listTab listTab;
     private jobTab jobTab;
     private userTab userTab;
+    private final static VolunteerClientMgr volunteerMgr = new VolunteerClientMgr();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,5 +60,7 @@ public final class VolunteerView extends AppCompatActivity {
         viewPager.setAdapter(msectionsPagerAdapter);
     }
 
-
+    public static VolunteerClientMgr getVolunteerMgr() {
+        return volunteerMgr;
+    }
 }

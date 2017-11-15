@@ -54,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 /**
@@ -66,10 +67,10 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
     private MapView mMapView;
     private View mView;
     private ArrayList<String> VWOArrayList = new ArrayList<>();
-    private GeoJsonLayer layer;
     private final static int PERMISSION_FINE_LOCATION = 101;
     private static List<MarkerOptions> VWOMarkerList = VolunteerClientMgr.getVWOMarkerList();
     DatabaseReference mVWORef = FirebaseDatabase.getInstance().getReference().child("VWO").child("id");
+    private final VolunteerClientMgr volunteerClientMgr = VolunteerView.getVolunteerMgr();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -151,21 +152,21 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
 
             for( int i = 0; i < features.length(); i++ ) {
 
-                    vwo = features.getJSONObject( i+2 );
-                    properties = vwo.getJSONObject("properties");
-                    name = properties.getString("Name");
-                    geometry = vwo.getJSONObject("geometry");
-                    coordinates = geometry.getJSONArray("coordinates");
-                    lat = coordinates.getDouble(1);
-                    lg = coordinates.getDouble(0);
-                    marker = new MarkerOptions().position(new LatLng(lat, lg)).title( name );
+                vwo = features.getJSONObject( i+2 );
+                properties = vwo.getJSONObject("properties");
+                name = properties.getString("Name");
+                geometry = vwo.getJSONObject("geometry");
+                coordinates = geometry.getJSONArray("coordinates");
+                lat = coordinates.getDouble(1);
+                lg = coordinates.getDouble(0);
+                marker = new MarkerOptions().position(new LatLng(lat, lg)).title( name );
 
 
                 for( j = 0; j < VWOArrayList.size(); j++ ) {
-                    
+
                     if( ((String)VWOArrayList.get(j)).equals( name )  ) {
                         marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red));
-                        VolunteerClientMgr.addVWOMarker(lat,lg,name);
+                        volunteerClientMgr.addVWOMarker(lat,lg,name);
                         break;
                     }
                 }
@@ -179,7 +180,7 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
-        e.printStackTrace();
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -195,6 +196,7 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
     public void onInfoWindowClick(Marker marker) {
         for(MarkerOptions markerOptions: VWOMarkerList){
             if(markerOptions.getTitle().equals(marker.getTitle())){
+                volunteerClientMgr.getShowVWOMgr().setSelectedVWOName(marker.getTitle());
                 Intent intent = new Intent(getContext(), VWOView.class);
                 intent.putExtra("MODE","VOL");
                 intent.putExtra("VWOName",marker.getTitle());
@@ -249,6 +251,24 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
                     Toast.makeText(getContext(), "This app requires location permissions!", Toast.LENGTH_LONG).show();
                 }
                 break;
+        }
+    }
+
+    /**
+     * After getting back from VWO view, clean up all the things just selected in mgr
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 1:
+                if(resultCode == RESULT_OK){
+                    volunteerClientMgr.getShowVWOMgr().setSelectedVWOName("");
+                    volunteerClientMgr.getShowVWOMgr().setSelectedEventName("");
+                    volunteerClientMgr.getShowVWOMgr().setSelectedJobName("");
+                }
         }
     }
 }

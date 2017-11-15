@@ -131,8 +131,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void userLogin() {
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        boolean login=false;
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
 
 
         if(TextUtils.isEmpty(email)) {
@@ -150,6 +151,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
         //if validations are ok
         progressBar.setVisibility(View.VISIBLE);
+
+
 
 
         firebaseAuth.signInWithEmailAndPassword(email,password+"VOL").addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -174,9 +177,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     Intent intent =new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VWOView.class);
                     intent.putExtra("MODE","VWO");
                     startActivity(intent);
+                    return;
                 }
             }
         });
+
+        progressBar.setVisibility(View.INVISIBLE);
+        Toast.makeText(getApplicationContext(),"Incorrect user input!",Toast.LENGTH_LONG).show();
     }
 
     @Override
