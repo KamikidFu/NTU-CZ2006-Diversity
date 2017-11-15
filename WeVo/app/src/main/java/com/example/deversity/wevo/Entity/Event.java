@@ -11,10 +11,12 @@ public class Event {
     private ArrayList<Job> JobList;
     private VWO relatedVWO;
     private String description;
+    private String location;
 
-    public Event(String date, String description, ArrayList<Job> JobList) {
+    public Event(String date, String description,String location, ArrayList<Job> JobList) {
         this.date=date;
         this.description=description;
+        this.location=location;
         this.JobList=JobList;
     }
 

@@ -54,7 +54,8 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
                 String EventDate = EditTextEventDate.getText().toString();
                 EventDate = EventDate +  ";" + EditTextEventTime.getText().toString();
                 String EventDescription = EditTextEventDescription.getText().toString();
-                Event newEvent = new Event(EventDate, EventDescription, newJobList);
+                String EventLocation = EditTextEventLocation.getText().toString();
+                Event newEvent = new Event(EventDate, EventDescription,EventLocation, newJobList);
                 VWOMgr.createEvent(EventName, newEvent);
                 Intent intent = new Intent(EventCreator.this, JobCreator.class);
                 intent.putExtra("EventName", EventName);
