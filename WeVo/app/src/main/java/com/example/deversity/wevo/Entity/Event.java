@@ -14,7 +14,6 @@ public class Event {
 
 
     public Event(String date, String description, String location, ArrayList<Job> JobList) {
-	EventModification
         this.date=date;
         this.description=description;
         this.location=location;
