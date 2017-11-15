@@ -138,15 +138,15 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         }
 
         if (TextUtils.isEmpty(name)) {
-            //password is empty
-            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
+            //name is empty
+            Toast.makeText(this, "Please Enter Name", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
 
         if (TextUtils.isEmpty(description)) {
-            //password is empty
-            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
+            //description is empty
+            Toast.makeText(this, "Please Enter Description", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
