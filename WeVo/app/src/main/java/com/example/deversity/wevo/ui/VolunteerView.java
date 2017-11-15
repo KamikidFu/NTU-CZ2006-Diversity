@@ -63,4 +63,9 @@ public final class VolunteerView extends AppCompatActivity {
     public static VolunteerClientMgr getVolunteerMgr() {
         return volunteerMgr;
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

@@ -94,7 +94,12 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         String password = editTextPassword.getText().toString().trim();
         final String name = editTextName.getText().toString().trim();
         final String description = editTextDescription.getText().toString().trim();
-
+        if(!(validate(email))){
+            //The length of password is wrong
+            Toast.makeText(this, "Please input right email address", Toast.LENGTH_SHORT).show();
+            //stopping the execution
+            return;
+        }
         if(password.toCharArray().length<5 && password.toCharArray().length>18){
             //The length of password is wrong
             Toast.makeText(this, "Please input 5 to 18 characters for password", Toast.LENGTH_SHORT).show();
@@ -102,21 +107,14 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
             return;
         }
 
-        if(!(validate(email))){
-            //The length of password is wrong
-            Toast.makeText(this, "Please input right email address", Toast.LENGTH_SHORT).show();
-            //stopping the execution
-            return;
-        }
-
-        if(!name.matches("[a-zA-Z]")){
+        if(name.matches("[a-zA-Z]")){
             //The length of password is wrong
             Toast.makeText(this, "Please only input English characters", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
 
-        if(description.toCharArray().length<129){
+        if(!(description.toCharArray().length<129)){
             //The length of password is wrong
             Toast.makeText(this, "Description exceeds 128 characters", Toast.LENGTH_SHORT).show();
             //stopping the execution

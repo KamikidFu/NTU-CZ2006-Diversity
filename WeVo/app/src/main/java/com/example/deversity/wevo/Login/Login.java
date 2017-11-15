@@ -4,6 +4,7 @@ package com.example.deversity.wevo.Login;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 
 import com.example.deversity.wevo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,7 +45,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText editTextPassword;
     private TextView textViewSignUp;
     private ProgressBar progressBar;
-    private boolean doubleBackToExitPressedOnce = false;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
     private String UserType = "User";
@@ -131,11 +133,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void userLogin() {
-        boolean login=false;
         final String email = editTextEmail.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
 
-
+        if(password.toCharArray().length<5 && password.toCharArray().length>18){
+            //The length of password is wrong
+            Toast.makeText(this, "Auth Failed!", Toast.LENGTH_SHORT).show();
+            //stopping the execution
+            return;
+        }
+        if(!email.contains("@")&&!email.contains(".")){
+            //The length of password is wrong
+            Toast.makeText(this, "Auth Failed!", Toast.LENGTH_SHORT).show();
+            //stopping the execution
+            return;
+        }
         if(TextUtils.isEmpty(email)) {
             //email is empty
             Toast.makeText(this, "Please Enter Email", Toast.LENGTH_SHORT ).show();
@@ -152,31 +164,29 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //if validations are ok
         progressBar.setVisibility(View.VISIBLE);
 
-
-
-
-        firebaseAuth.signInWithEmailAndPassword(email,password+"VOL").addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email,password+"VOL").addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    finish();
-                    Toast.makeText(getApplicationContext(),"Bonjour! Volunteer!",Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class);
-                    intent.putExtra("MODE","VOL");
-                    startActivity(intent);
-                }
+            public void onSuccess(AuthResult authResult) {
+                Toast.makeText(getApplicationContext(),"Bonjour! Volunteer!",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VolunteerView.class);
+                intent.putExtra("MODE","VOL");
+                startActivity(intent);
+                finish();
             }
         });
 
-        firebaseAuth.signInWithEmailAndPassword(email,password+"VWO").addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email,password+"VWO").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    finish();
                     Toast.makeText(getApplicationContext(),"Bonjour! VWO!",Toast.LENGTH_LONG).show();
                     Intent intent =new Intent(getApplicationContext(), com.example.deversity.wevo.ui.VWOView.class);
                     intent.putExtra("MODE","VWO");
                     startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Authentication Failed!",Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -205,4 +215,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onBackPressed(){
     }
+
 }
