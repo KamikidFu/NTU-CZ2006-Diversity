@@ -48,7 +48,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
     FirebaseUser USER;
     DatabaseReference mRootView = FirebaseDatabase.getInstance().getReference();
     private String VWOID;
-
+    private static int defaultColor;
     private String[] tmp = new String[1];
     private static boolean VWOLog = false;
 
@@ -146,6 +146,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
             startActivity(new Intent(this, Login.class));
             finish();
         }
+        defaultColor = eventListView.getSolidColor();
     }
 
     @Override
@@ -181,18 +182,29 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                TextView listElement = (TextView) view;
-                listElement.setBackgroundResource( R.color.colorWhite );
-                ColorDrawable buttonColor = (ColorDrawable)listElement.getBackground();
 
-                int colorId = buttonColor.getColor();
+                if(!VWOLog) {
+                    //TODO Volunteer visit VWO view features
+                    TextView listElement = (TextView) view;
+                    if(listElement.getSolidColor() == defaultColor){
+                        listElement.setBackgroundColor(Color.RED);
+                    }else if (listElement.getSolidColor()==Color.RED){
+                        listElement.setBackgroundColor(defaultColor);
+                    }
+                    /*listElement.setBackgroundResource(R.color.colorWhite);
+                    ColorDrawable buttonColor = (ColorDrawable) listElement.getBackground();
 
-                if ( colorId == R.color.colorRed ) {
-                    listElement.setBackgroundResource( R.color.colorWhite );
-                    volMngr.deleteEvent( (String) listElement.getText() );
-                } else if ( colorId == R.color.colorWhite ){
-                    listElement.setBackgroundResource( R.color.colorRed  );
-                    //volMngr.createEvent( (String) listElement.getText() );
+                    int colorId = buttonColor.getColor();
+
+                    if (colorId == R.color.colorRed) {
+                        listElement.setBackgroundResource(R.color.colorWhite);
+                        volMngr.deleteEvent((String) listElement.getText());
+                    } else if (colorId == R.color.colorWhite) {
+                        listElement.setBackgroundResource(R.color.colorRed);
+                        //volMngr.createEvent( (String) listElement.getText() );
+                    }*/
+                }else{
+                    //TODO VWO uses VWO view
                 }
             }
         });
