@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.example.deversity.wevo.Entity.Event;
 import com.example.deversity.wevo.Entity.Job;
+import com.example.deversity.wevo.Entity.VWO;
 import com.example.deversity.wevo.R;
 import com.example.deversity.wevo.mgr.VWOClientMgr;
 
@@ -59,8 +60,8 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
                 VWOMgr.createEvent(EventName, newEvent);
 
                 //TO-DO Somehow the intent does not start
-                Intent intent = new Intent(EventCreator.this, JobCreator.class);
-                intent.putExtra("EventName", EventName);
+                Intent intent = new Intent(EventCreator.this, VWOView.class);
+                intent.putExtra("Mode", "VWO" );
                 startActivity(intent);
             }
         });
