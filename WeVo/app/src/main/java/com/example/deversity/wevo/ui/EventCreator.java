@@ -64,10 +64,8 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
         });
         discardButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(EventCreator.this, VWOView.class));
-                //Toast.makeText(this, "You click on discard button", Toast.LENGTH_LONG).show();
-
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }
