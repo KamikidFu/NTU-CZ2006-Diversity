@@ -59,10 +59,12 @@ public class EventCreator extends AppCompatActivity implements View.OnClickListe
                 Event newEvent = new Event(EventDate, EventDescription,EventLocation, newJobList);
                 VWOMgr.createEvent(EventName, newEvent);
 
-                //TO-DO Somehow the intent does not start
+                //TODO FOR FURTHER VERSION IMPLEMENTATION (Coming soon)
+                /*
                 Intent intent = new Intent(EventCreator.this, VWOView.class);
                 intent.putExtra("Mode", "VWO" );
                 startActivity(intent);
+                */
             }
         });
         discardButton.setOnClickListener(new View.OnClickListener() {
