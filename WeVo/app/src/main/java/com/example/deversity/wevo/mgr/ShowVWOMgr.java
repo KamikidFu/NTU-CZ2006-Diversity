@@ -15,36 +15,31 @@ import java.util.List;
  */
 
 public class ShowVWOMgr {
-    private VWO selectedVWO;
-    private Event selectedEvent;
-    private Job selectedJob;
-    private List<VWO> vwoList;
+    private String selectedVWOName;
+    private String selectedEventName;
+    private String selectedJobName;
 
-    public void showVWO(GoogleMap map){
-
+    public String getSelectedVWOName() {
+        return selectedVWOName;
     }
 
-    public void showVWO(ListView listView){
-
+    public void setSelectedVWOName(String selectedVWOName) {
+        this.selectedVWOName = selectedVWOName;
     }
 
-    public void showEvent(ListView listView){
-
+    public String getSelectedEventName() {
+        return selectedEventName;
     }
 
-    public void showEvent(Event event){
-
+    public void setSelectedEventName(String selectedEventName) {
+        this.selectedEventName = selectedEventName;
     }
 
-    public void setSelectedVWO(VWO selectedVWO) {
-        this.selectedVWO = selectedVWO;
+    public String getSelectedJobName() {
+        return selectedJobName;
     }
 
-    public void setSelectedEvent(Event selectedEvent) {
-        this.selectedEvent = selectedEvent;
-    }
-
-    public void setSelectedJob(Job selectedJob) {
-        this.selectedJob = selectedJob;
+    public void setSelectedJobName(String selectedJobName) {
+        this.selectedJobName = selectedJobName;
     }
 }
