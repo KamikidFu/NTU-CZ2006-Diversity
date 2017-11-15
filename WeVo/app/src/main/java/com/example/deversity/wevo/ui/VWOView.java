@@ -48,8 +48,9 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
     FirebaseUser USER;
     DatabaseReference mRootView = FirebaseDatabase.getInstance().getReference();
     private String VWOID;
+    
     private String[] tmp = new String[1];
-    //private boolean VWOLog = false;
+    private static boolean VWOLog = false;
 
 
 
@@ -72,7 +73,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         if(!intent[0].getStringExtra("MODE").isEmpty()) {
             String mode = intent[0].getStringExtra("MODE");
             if(mode.matches("VOL")) {
-                //VWOLog=false;
+                VWOLog=false;
                 //TODO Volunteer visit
                 final String name = intent[0].getStringExtra("VWOName");
                 Toast.makeText(getApplicationContext(),"Welcome to "+name,Toast.LENGTH_SHORT).show();
@@ -116,7 +117,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
                 addEventButton.setText("");
                 EditTextDescription.setEnabled(false);
             }else {
-                //VWOLog=true;
+                VWOLog=true;
                 USER = FirebaseAuth.getInstance().getCurrentUser();
                 //TODO VWO user log in
                 mRootView.child("VWO").child("id").child(USER.getUid()).addValueEventListener(new ValueEventListener() {
@@ -202,6 +203,17 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         if(view == addEventButton){
             startActivity(new Intent(this, EventCreator.class));
             Log.d("Its okay", "onClickView() is working");
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!VWOLog){
+            Intent intent = new Intent();
+            setResult(RESULT_OK,intent);
+            finish();
+        }else{
+
         }
     }
 }
