@@ -86,6 +86,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         final String name = editTextName.getText().toString().trim();
         final String description = editTextDescription.getText().toString().trim();
 
+        if(password.toCharArray().length>5 && password.toCharArray().length<19){
+            //The length of password is wrong
+            Toast.makeText(this, "Please input 6 to 18 characters for password", Toast.LENGTH_SHORT).show();
+            //stopping the execution
+            return;
+        }
+
         if (TextUtils.isEmpty(email)) {
             //email is empty
             Toast.makeText(this, "Please Enter Email", Toast.LENGTH_SHORT).show();
