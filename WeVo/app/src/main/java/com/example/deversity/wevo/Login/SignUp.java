@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Switch;
@@ -50,6 +51,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
     private EditText editTextDescription;
     private Switch switchUserType;
     private FirebaseAuth firebaseAuth;
+    private EditText editTextLocation;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
@@ -83,9 +85,16 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         switchUserType = (Switch) findViewById(R.id.switchUserType);
         editTextDescription = (EditText) findViewById(R.id.editTextDescription);
         editTextName = (EditText) findViewById(R.id.editTextName);
-
+        editTextLocation = (EditText) findViewById(R.id.editTextLocation);
         buttonSignUp.setOnClickListener(this);
         textViewSignIn.setOnClickListener(this);
+        switchUserType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editTextLocation.setVisibility(isChecked? View.INVISIBLE : View.VISIBLE);
+            }
+        });
+
     }
 
     private void registerUser() {
@@ -94,6 +103,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         final String password = editTextPassword.getText().toString().trim();
         final String name = editTextName.getText().toString().trim();
         final String description = editTextDescription.getText().toString().trim();
+        final String location = editTextLocation.getText().toString().trim();
 
         if(!(validate(email))){
             //The length of password is wrong
@@ -120,6 +130,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         if(description.toCharArray().length>128){
             //The length of password is wrong
             Toast.makeText(this, "Description exceeds 128 characters", Toast.LENGTH_SHORT).show();
+            //stopping the execution
+            return;
+        }
+
+        if(location.toCharArray().length>40){
+            //The length of password is wrong
+            Toast.makeText(this, "Location exceeds 40 characters", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
@@ -151,6 +168,16 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
             //stopping the execution
             return;
         }
+
+        if (!switchUserType.isChecked()){
+            if (TextUtils.isEmpty(location)) {
+                //name is empty
+                Toast.makeText(this, "Please Enter Name", Toast.LENGTH_SHORT).show();
+                //stopping the execution
+                return;
+            }
+        }
+
 
         //if validations are ok
         progressBar.setVisibility(View.VISIBLE);
@@ -204,7 +231,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                     if (user != null) {
                                         ArrayList<Event> emptyEvent = new ArrayList<>();
-                                        VWO newVWO = new VWO(name, user.getEmail(), "Password", "location", description, emptyEvent);
+                                        VWO newVWO = new VWO(name, user.getEmail(), "password", location, description, emptyEvent);
                                         Map<String, Object> VWOData = new HashMap<>();
                                         VWOData.put(user.getUid(), newVWO);
                                         mRootRef.child("VWO").child("id").updateChildren(VWOData);

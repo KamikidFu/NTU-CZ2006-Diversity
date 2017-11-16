@@ -54,10 +54,20 @@
             android:inputType="textPersonName"
             android:hint="Description" />
 
-        <Switch
-            android:id="@+id/switchUserType"
+        <EditText
+            android:id="@+id/editTextLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:layout_marginTop="15dp"
+            android:hint="Location"/>
+
+        <Switch
+            android:id="@+id/switchUserType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:textOff="VWO"
             android:textOn="Volunteer"
             android:showText="true"
