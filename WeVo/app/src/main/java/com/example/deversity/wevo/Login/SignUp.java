@@ -90,8 +90,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
     private void registerUser() {
 
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
         final String name = editTextName.getText().toString().trim();
         final String description = editTextDescription.getText().toString().trim();
 
@@ -101,13 +101,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
             //stopping the execution
             return;
         }
-        if(password.toCharArray().length<5 && password.toCharArray().length>18){
+
+        if(password.length()<5 && password.length()>18){
             //The length of password is wrong
             Toast.makeText(this, "Please input 5 to 18 characters for password", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
-
 
         if(name.matches("[a-zA-Z]")){
             //The length of password is wrong
