@@ -102,7 +102,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
             return;
         }
 
-        if(password.length()<5 && password.length()>18){
+        if(password.length()<5 || password.length()>18){
             //The length of password is wrong
             Toast.makeText(this, "Please input 5 to 18 characters for password", Toast.LENGTH_SHORT).show();
             //stopping the execution
@@ -199,7 +199,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                                     //profile activity
                                     finish();
                                     Intent intent = new Intent(getApplicationContext(), VWOView.class);
-                                    intent.putExtra("Mode", "VWO" );
+                                    intent.putExtra("MODE", "VWO" );
                                     startActivity( intent );
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                     if (user != null) {
