@@ -198,7 +198,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                                 if (firebaseAuth.getCurrentUser() != null) {
                                     //profile activity
                                     finish();
-                                    startActivity(new Intent(getApplicationContext(), VWOView.class));
+                                    Intent intent = new Intent(getApplicationContext(), VWOView.class);
+                                    intent.putExtra("Mode", "VWO" );
+                                    startActivity( intent );
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                     if (user != null) {
                                         ArrayList<Event> emptyEvent = new ArrayList<>();
@@ -224,6 +226,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
         if (view == buttonSignUp) {
             registerUser();
+
         }
         if (view == textViewSignIn ) {
             //will open login activity
