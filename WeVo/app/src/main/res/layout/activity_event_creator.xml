@@ -99,7 +99,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:background="#00ff00"
-                android:text="Okay"
+                android:text="OKAY"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintRight_toLeftOf="@+id/discardButton" />
 
