@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +83,7 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 VWOArrayList = new ArrayList<>();
-                for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()) {
                     if (VWOSnapshot.child("name").getValue(String.class) != null)
                         VWOArrayList.add(VWOSnapshot.child("name").getValue(String.class));
                 }
@@ -146,31 +147,30 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
             String jsonString = writer.toString();
 
 
-
-            reader = new JSONObject( jsonString );
+            reader = new JSONObject(jsonString);
             features = reader.getJSONArray("features");
 
-            for( int i = 0; i < features.length(); i++ ) {
+            for (int i = 0; i < features.length(); i++) {
 
-                vwo = features.getJSONObject( i+2 );
+                vwo = features.getJSONObject(i + 2);
                 properties = vwo.getJSONObject("properties");
                 name = properties.getString("Name");
                 geometry = vwo.getJSONObject("geometry");
                 coordinates = geometry.getJSONArray("coordinates");
                 lat = coordinates.getDouble(1);
                 lg = coordinates.getDouble(0);
-                marker = new MarkerOptions().position(new LatLng(lat, lg)).title( name );
+                marker = new MarkerOptions().position(new LatLng(lat, lg)).title(name);
 
 
-                for( j = 0; j < VWOArrayList.size(); j++ ) {
+                for (j = 0; j < VWOArrayList.size(); j++) {
 
-                    if( ((String)VWOArrayList.get(j)).equals( name )  ) {
+                    if (((String) VWOArrayList.get(j)).equals(name)) {
                         marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red));
-                        volunteerClientMgr.addVWOMarker(lat,lg,name);
+                        volunteerClientMgr.addVWOMarker(lat, lg, name);
                         break;
                     }
                 }
-                if( j == VWOArrayList.size() )
+                if (j == VWOArrayList.size())
                     marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_blue));
 
                 mMap.addMarker(marker);
@@ -188,8 +188,16 @@ public class mapTab extends Fragment implements GoogleMap.OnInfoWindowClickListe
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setAllGesturesEnabled(true);
-
         mMap.setOnInfoWindowClickListener(this);
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override

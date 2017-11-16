@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -150,7 +151,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         final VWOClientMgr VWOmgr = new VWOClientMgr();
         final VolunteerClientMgr volMngr = new VolunteerClientMgr();
@@ -166,7 +167,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         ButtonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Log you out", Toast.LENGTH_SHORT ).show();
+                Toast.makeText(getApplicationContext(), "Log you out", Toast.LENGTH_SHORT).show();
                 VWOmgr.logOut();
                 startActivity(new Intent(VWOView.this, Login.class));
                 try {
@@ -186,22 +187,9 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
         });
     }
 
-    @Override
-    public void onClick(View view) {
-        if(view == addEventButton){
-            startActivity(new Intent(this, EventCreator.class));
-            Log.d("Its okay", "onClickView() is working");
-        }
-    }
 
     @Override
-    public void onBackPressed() {
-        if(!VWOLog){
-            Intent intent = new Intent();
-            setResult(RESULT_OK,intent);
-            finish();
-        }else{
+    public void onClick(View v) {
 
-        }
     }
 }

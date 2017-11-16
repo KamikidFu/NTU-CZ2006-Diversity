@@ -90,17 +90,19 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
     private void registerUser() {
 
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
         final String name = editTextName.getText().toString().trim();
         final String description = editTextDescription.getText().toString().trim();
+
         if(!(validate(email))){
             //The length of password is wrong
             Toast.makeText(this, "Please input right email address", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
-        if(password.toCharArray().length<5 && password.toCharArray().length>18){
+
+        if(password.length()<5 && password.length()>18){
             //The length of password is wrong
             Toast.makeText(this, "Please input 5 to 18 characters for password", Toast.LENGTH_SHORT).show();
             //stopping the execution
@@ -114,7 +116,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
             return;
         }
 
-        if(!(description.toCharArray().length<129)){
+
+        if(description.toCharArray().length>128){
             //The length of password is wrong
             Toast.makeText(this, "Description exceeds 128 characters", Toast.LENGTH_SHORT).show();
             //stopping the execution
@@ -136,15 +139,15 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         }
 
         if (TextUtils.isEmpty(name)) {
-            //password is empty
-            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
+            //name is empty
+            Toast.makeText(this, "Please Enter Name", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
 
         if (TextUtils.isEmpty(description)) {
-            //password is empty
-            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
+            //description is empty
+            Toast.makeText(this, "Please Enter Description", Toast.LENGTH_SHORT).show();
             //stopping the execution
             return;
         }
@@ -168,7 +171,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                     if (user != null) {
                                         // TODO: Change between VWO and Volunteer, add Name, remove Password, add description
-                                        ArrayList<Job> startingJob = new ArrayList<>();
+                                        ArrayList<String> startingJob = new ArrayList<>();
                                         Volunteer newVolunteer = new Volunteer(name, user.getEmail(), "password", description, startingJob);
                                         Map<String, Object> volunteerData = new HashMap<>();
                                         volunteerData.put(user.getUid(), newVolunteer);
@@ -195,7 +198,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                                 if (firebaseAuth.getCurrentUser() != null) {
                                     //profile activity
                                     finish();
-                                    startActivity(new Intent(getApplicationContext(), VWOView.class));
+                                    Intent intent = new Intent(getApplicationContext(), VWOView.class);
+                                    intent.putExtra("Mode", "VWO" );
+                                    startActivity( intent );
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                     if (user != null) {
                                         ArrayList<Event> emptyEvent = new ArrayList<>();
@@ -221,6 +226,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
         if (view == buttonSignUp) {
             registerUser();
+
         }
         if (view == textViewSignIn ) {
             //will open login activity

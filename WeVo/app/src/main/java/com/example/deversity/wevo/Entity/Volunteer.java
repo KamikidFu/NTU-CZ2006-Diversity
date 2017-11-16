@@ -12,14 +12,14 @@ public class Volunteer {
     private String email;
     private String password;
     private String description;
-    private ArrayList<Job> jobList;
+    private ArrayList<String> eventList;
 
-    public Volunteer(String name, String email, String password, String description, ArrayList<Job> jobList) {
+    public Volunteer(String name, String email, String password, String description, ArrayList<String> eventList) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.description = description;
-        this.jobList = jobList;
+        this.eventList = eventList;
     }
 
     public String getName() {
@@ -54,11 +54,11 @@ public class Volunteer {
         this.description = newDescription;
     }
 
-    public ArrayList<Job> getJobList() {
-        return this.jobList;
+    public ArrayList<String> getEventList() {
+        return this.eventList;
     }
 
-    public void setJobList(ArrayList<Job> newJobList) {
-        this.jobList = newJobList;
+    public void setEventList(ArrayList<String> newEventList) {
+        this.eventList = newEventList;
     }
 }

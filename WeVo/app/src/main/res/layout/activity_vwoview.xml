@@ -36,9 +36,9 @@
 
             <Button
                 android:id="@+id/ButtonEditDescription"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_weight="0"
                 android:text="Edit" />
         </LinearLayout>
 
@@ -60,7 +60,11 @@
             android:layout_height="wrap_content"
             android:text="@string/label_event"
             android:textSize="24sp" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+        </ScrollView>
         <ListView
             android:id="@+id/eventList"
             android:layout_width="match_parent"

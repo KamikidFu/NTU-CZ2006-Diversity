@@ -184,9 +184,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     intent.putExtra("MODE","VWO");
                     startActivity(intent);
                     finish();
-                }else{
-                    Toast.makeText(getApplicationContext(),"Authentication Failed!",Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.INVISIBLE);
                 }
             }
         });
