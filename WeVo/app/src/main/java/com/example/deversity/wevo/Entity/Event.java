@@ -12,13 +12,7 @@ public class Event {
     private String description;
     private String location;
 
-    /**
-     * Event constructor
-     * @param date The date of event
-     * @param description The description of event
-     * @param location The location of event
-     * @param JobList For future version ONLY Job list for that event
-     */
+
     public Event(String date, String description, String location, ArrayList<Job> JobList) {
         this.date=date;
         this.description=description;
@@ -27,21 +21,32 @@ public class Event {
         this.location=location;
     }
 
-    /**
-     * Get description of event
-     * @return Description of event
-     */
+    public String getLocation() {
+        return location;
+    }
+
+    public String getDate(){
+        return this.date;
+    }
+
+    public void setDate(String newDate) {
+        this.date = newDate;
+    }
+
     public String getDescription(){
         return this.description;
     }
 
-    /**
-     * Set description of event
-     * @param newDescription Description of event
-     */
     public void setDescription(String newDescription){
         this.description = newDescription;
     }
 
+    public ArrayList<Job> getJobList(){
+        return JobList;
+    }
+
+    public void setJobList(ArrayList<Job> newJobList) {
+        this.JobList = newJobList;
+    }
 
 }

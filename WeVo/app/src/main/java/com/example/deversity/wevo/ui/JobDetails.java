@@ -7,5 +7,4 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public class JobDetails extends AppCompatActivity {
-    //For future version use ONLY
 }

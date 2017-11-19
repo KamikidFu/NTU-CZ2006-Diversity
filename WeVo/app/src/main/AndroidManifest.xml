@@ -39,6 +39,7 @@
 
         <activity android:name=".ui.EventCreator"/>
         <activity android:name=".ui.JobCreator"/>
+        <activity android:name=".ui.JobDetails"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
