@@ -21,7 +21,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-
+/**
+ * ListTab is a boundary class for volunteer
+ * @author John
+ */
 public class listTab extends Fragment{
     private View mView;
     private ArrayList<String> VWOArrayList = new ArrayList<>();

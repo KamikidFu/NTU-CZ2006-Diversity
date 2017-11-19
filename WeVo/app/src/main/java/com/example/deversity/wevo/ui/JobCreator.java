@@ -18,7 +18,7 @@ import com.example.deversity.wevo.mgr.VWOClientMgr;
 import java.util.ArrayList;
 
 /**
- * EventCreator is a boundary class for creating event and showing event
+ * JobCreator is a boundary class for creating event and showing event
  * @author Gehan
  */
 

@@ -20,7 +20,6 @@ import java.util.ArrayList;
  * EventCreator is a boundary class for creating event and showing event
  * @author Teo
  */
-
 public class EventCreator extends AppCompatActivity implements View.OnClickListener{
 
     private Button submitButton;

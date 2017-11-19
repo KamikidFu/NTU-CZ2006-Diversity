@@ -25,7 +25,6 @@ import java.util.List;
  * @author John; Fu, Yunhao
  */
 public final class VolunteerView extends AppCompatActivity {
-    private static final String TAG = "VolunteerView";
 
     private SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
