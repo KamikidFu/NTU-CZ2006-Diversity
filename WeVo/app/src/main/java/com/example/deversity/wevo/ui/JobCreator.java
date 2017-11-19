@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 /**
  * JobCreator is a boundary class for creating event and showing event
+ * For future version ONLY
  * @author Gehan
  */
 

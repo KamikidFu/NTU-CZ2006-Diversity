@@ -26,7 +26,7 @@ public class VolunteerClientMgr {
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private static List<MarkerOptions> VWOMarkerList = new ArrayList<>();
     private String pushId;
-
+    private final ShowVWOMgr ShowVWOMgr = new ShowVWOMgr();
     /**
      * Add VWO marker method, to add new marker in the map
      * @param Latitude Latitude of VWO
@@ -88,5 +88,13 @@ public class VolunteerClientMgr {
      */
     public void LogOut(){
         FirebaseAuth.getInstance().signOut();
+    }
+
+    /**
+     * Get show vwo mgr for map use
+     * @return ShowVWOMgr
+     */
+    public ShowVWOMgr getShowVWOMgr() {
+        return ShowVWOMgr;
     }
 }

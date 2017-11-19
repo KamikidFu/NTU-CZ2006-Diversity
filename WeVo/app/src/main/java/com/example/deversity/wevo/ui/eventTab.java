@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * JobTab is a boundary class for volunteer view
  * @author John
  */
-public class jobTab extends Fragment{
+public class eventTab extends Fragment{
     private View mView;
     private ArrayList<String> VWOArrayList = new ArrayList<>();
     private ListView vwoListView;
@@ -38,7 +38,7 @@ public class jobTab extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        mView = inflater.inflate(R.layout.activity_listtab, container, false);
+        mView = inflater.inflate(R.layout.activity_eventtab, container, false);
         vwoListView = (ListView) mView.findViewById(R.id.vwoList);
         mVWORef.addValueEventListener(new ValueEventListener() {
             @Override
