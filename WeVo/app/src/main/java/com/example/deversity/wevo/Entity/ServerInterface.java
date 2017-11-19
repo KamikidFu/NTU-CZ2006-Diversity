@@ -25,8 +25,15 @@ public final class ServerInterface {
     private boolean isVWO;
     private static ServerInterface INSTANCE = new ServerInterface();
 
+    /**
+     * Default empty constructor
+     */
     private ServerInterface(){}
 
+    /**
+     * Get the only one interface for server
+     * @return Server instance
+     */
     public static ServerInterface getINSTANCE() {
         return INSTANCE;
     }
