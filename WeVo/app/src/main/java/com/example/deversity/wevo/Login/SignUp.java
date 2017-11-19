@@ -97,6 +97,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
     }
 
+    /**
+     * Register one user main method
+     */
     private void registerUser() {
 
         final String email = editTextEmail.getText().toString().trim();

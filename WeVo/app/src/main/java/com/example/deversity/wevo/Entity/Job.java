@@ -7,7 +7,6 @@ import java.util.List;
  * Entity class for Job
  * @author Fu, Yunhao
  */
-
 public class Job {
     private String name;
     private String description;
@@ -15,6 +14,14 @@ public class Job {
     private int amountNeed;
     private int vacancy;
 
+    /**
+     * Job full constructor
+     * @param name Name of job
+     * @param description Description of job
+     * @param volunteerList Volunteer list for that job
+     * @param amountNeed How many volunteer needed in that job
+     * @param vacancy How many vacancy left
+     */
     public Job(String name, String description, ArrayList<Volunteer> volunteerList, int amountNeed, int vacancy){
         this.name = name;
         this.description = description;
@@ -23,35 +30,36 @@ public class Job {
         this.vacancy = vacancy;
     }
 
+    /**
+     * Set name
+     * @param name Name of job
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Set description
+     * @param Description Description
+     */
     public void setDescription(String Description) {
         this.description=Description;
     }
 
-    public void setAmountNeed(int amountNeed) {
-        this.amountNeed = amountNeed;
-    }
-
+    /**
+     * Get name
+     * @return Name of job
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Get description
+     * @return Description
+     */
     public String getDescription() {
         return description;
     }
 
-    public ArrayList<Volunteer> getVolunteerList() {
-        return volunteerList;
-    }
-
-    public int getAmountNeed() {
-        return amountNeed;
-    }
-
-    public int getVacancy() {
-        return vacancy;
-    }
 }

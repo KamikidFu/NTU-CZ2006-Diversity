@@ -132,6 +132,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         textViewSignUp.setOnClickListener(this);
     }
 
+    /**
+     * User login main method
+     */
     private void userLogin() {
         final String email = editTextEmail.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();

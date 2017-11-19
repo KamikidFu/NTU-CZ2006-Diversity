@@ -24,7 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-
+/**
+ * JobTab is a boundary class for volunteer view
+ * @author John
+ */
 public class jobTab extends Fragment{
     private View mView;
     private ArrayList<String> VWOArrayList = new ArrayList<>();
@@ -42,7 +45,6 @@ public class jobTab extends Fragment{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 VWOArrayList = new ArrayList<>();
                 for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()){
-                    Log.d("KEEYYYYYYYYSYSYYSYSYSY", "key:  " + dataSnapshot.getKey().toString() );
                     if (VWOSnapshot.getValue(String.class) != null)
                         VWOArrayList.add(VWOSnapshot.getValue(String.class));
                 }

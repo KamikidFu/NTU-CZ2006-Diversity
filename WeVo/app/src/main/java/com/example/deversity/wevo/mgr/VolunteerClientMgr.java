@@ -25,15 +25,14 @@ public class VolunteerClientMgr {
     private FirebaseUser USER = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private static List<MarkerOptions> VWOMarkerList = new ArrayList<>();
-
-    private Volunteer user;
-    private ShowVWOMgr VWOMgr;
     private String pushId;
 
-
-
-    private final ShowVWOMgr ShowVWOMgr = new ShowVWOMgr();
-
+    /**
+     * Add VWO marker method, to add new marker in the map
+     * @param Latitude Latitude of VWO
+     * @param Longitude Longitude of VWO
+     * @param title Title of VWO
+     */
     public void addVWOMarker(double Latitude, double Longitude,String title){
 
         if(VWOMarkerList!=null){
@@ -41,6 +40,10 @@ public class VolunteerClientMgr {
         }
     }
 
+    /**
+     * Attend Event
+     * @param EventName Name of event
+     */
     public void createEvent(String EventName){
         Map<String, Object> EventData = new HashMap<>();
         EventData.put(EventName, EventName);
@@ -48,35 +51,42 @@ public class VolunteerClientMgr {
         mRootRef.child("Vol").child("id").child(USER.getUid()).child("Events").child(pushId).setValue(EventName);
     }
 
+    /**
+     * Cancel Event
+     * @param EventName Name of event
+     */
     public void deleteEvent(String EventName){
         mRootRef.child("Vol").child("id").child(USER.getUid()).child("Events").child(pushId).setValue(null);
     }
 
+    /**
+     * get vwo marker list
+     * @return
+     */
     public static List<MarkerOptions> getVWOMarkerList() {
         return VWOMarkerList;
     }
 
+    /**
+     * Set user description
+     * @param newDescription Description
+     */
     public void SetDescriptionUSER(String newDescription){
         mRootRef.child("Vol").child("id").child(USER.getUid()).child("description").setValue(newDescription);
     }
+
+    /**
+     * Set user name
+     * @param newName Name
+     */
     public void SetNameUSER(String newName) {
         mRootRef.child("Vol").child("id").child(USER.getUid()).child("name").setValue(newName);
     }
 
+    /**
+     * Log out portal
+     */
     public void LogOut(){
         FirebaseAuth.getInstance().signOut();
-    }
-
-    public void applyJob(){
-        //TODO apply for a job, find the related job in firebase from the VWO. Then, add this volunteer to the Volunteer list
-
-    }
-
-    public void showJob(ListView listView){
-        //TODO Show the job reference which are in firebase
-    }
-
-    public ShowVWOMgr getShowVWOMgr() {
-        return ShowVWOMgr;
     }
 }
