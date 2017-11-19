@@ -71,7 +71,7 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
 
 
         final Intent[] intent = {getIntent()};
-        if(!intent[0].getStringExtra("MODE").isEmpty()) {
+        if( intent[0].getStringExtra("MODE") != null ) {
             String mode = intent[0].getStringExtra("MODE");
             if(mode.matches("VOL")) {
                 VWOLog=false;
@@ -189,7 +189,9 @@ public class VWOView extends AppCompatActivity implements View.OnClickListener{
 
 
     @Override
-    public void onClick(View v) {
-
+    public void onClick(View view) {
+        if(view == addEventButton){
+            startActivity(new Intent(this, EventCreator.class));
+        }
     }
 }
