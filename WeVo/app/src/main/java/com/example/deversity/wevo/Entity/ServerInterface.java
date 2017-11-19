@@ -188,7 +188,7 @@ public final class ServerInterface {
     public void SignUpAddToDb(String UserID, String UserType, Object UserObject){
         Map<String, Object> UserData = new HashMap<>();
         UserData.put(UserID, UserObject);
-        mRootRef.child(UserType).child("id").updateChildren(UserData);
+        mRootRef.child(UserType).child("id").child(UserID).updateChildren(UserData);
     }
 
 }
