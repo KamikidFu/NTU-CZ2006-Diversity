@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.deversity.wevo.Entity.ServerInterface;
 import com.example.deversity.wevo.Login.Login;
 import com.example.deversity.wevo.R;
 import com.example.deversity.wevo.mgr.VolunteerClientMgr;
@@ -29,12 +28,16 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class userTab extends Fragment {
     FirebaseUser USER = FirebaseAuth.getInstance().getCurrentUser();
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference mUserRef = mRootRef.child("Vol").child("id").child(USER.getUid());
+
     EditText mEditTextName;
     EditText mEditTextBrief;
     Button mButtonNameModify;
     Button mButtonBriefModify;
     Button mButtonLogOut;
-    VolunteerClientMgr userTabMgr= new VolunteerClientMgr();
+    String UserName;
+    String UserDescription;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,8 +48,20 @@ public class userTab extends Fragment {
         mEditTextName = rootView.findViewById(R.id.editTextName);
         mEditTextBrief = rootView.findViewById(R.id.editTextBrief);
         mButtonLogOut = rootView.findViewById(R.id.btnLogout);
-        mEditTextName.setText(userTabMgr.getVolunteerDetails().get(0));
-        mEditTextBrief.setText(userTabMgr.getVolunteerDetails().get(1));
+        mUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserName = dataSnapshot.child("name").getValue(String.class);
+                UserDescription = dataSnapshot.child("description").getValue(String.class);
+                mEditTextName.setText(UserName);
+                mEditTextBrief.setText(UserDescription);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         return rootView;
     }
 
@@ -56,6 +71,8 @@ public class userTab extends Fragment {
     }
     public void onStart(){
         super.onStart();
+
+        final VolunteerClientMgr userTabMgr= new VolunteerClientMgr();
         mButtonNameModify.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){

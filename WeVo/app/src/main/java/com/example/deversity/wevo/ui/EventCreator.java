@@ -10,7 +10,6 @@ import android.widget.EditText;
 
 import com.example.deversity.wevo.Entity.Event;
 import com.example.deversity.wevo.Entity.Job;
-import com.example.deversity.wevo.Entity.ServerInterface;
 import com.example.deversity.wevo.Entity.VWO;
 import com.example.deversity.wevo.R;
 import com.example.deversity.wevo.mgr.VWOClientMgr;
