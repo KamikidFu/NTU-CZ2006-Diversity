@@ -2,6 +2,7 @@ package com.example.deversity.wevo.mgr;
 
 import com.example.deversity.wevo.Entity.Event;
 import com.example.deversity.wevo.Entity.Job;
+import com.example.deversity.wevo.Entity.ServerInterface;
 import com.example.deversity.wevo.Entity.VWO;
 import com.example.deversity.wevo.Entity.Event;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,17 +18,20 @@ import java.util.Map;
 public class VWOClientMgr {
     private VWO user;
     private ShowVWOMgr VWOMgr;
+    private ServerInterface DBInterface = ServerInterface.getINSTANCE();
     private FirebaseUser USER = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
     public void createEvent(String EventName, Event newEvent){
-        Map<String, Object> EventData = new HashMap<>();
-        EventData.put(EventName, newEvent);
-        mRootRef.child("VWO").child("id").child(USER.getUid()).child("Events").updateChildren(EventData);
+        DBInterface.VWOCreateEvents(USER.getUid(), EventName, newEvent);
     }
 
     public void editDescription(String Description){
-        mRootRef.child("VWO").child("id").child(USER.getUid()).child("description").setValue(Description);
+        DBInterface.setVWODetails(USER.getUid(), Description, "description");
+    }
+
+    public void removeEvent(String EventName){
+        DBInterface.VWODeleteEvents(USER.getUid(), EventName);
     }
 
     public void addJobToEvent(Job newJob, String EventName){
@@ -37,7 +41,7 @@ public class VWOClientMgr {
     }
 
     public void logOut(){
-        FirebaseAuth.getInstance().signOut();
+        DBInterface.logOut();
     }
 
 }

@@ -12,6 +12,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.deversity.wevo.Entity.ServerInterface;
 import com.example.deversity.wevo.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,33 +25,18 @@ import java.util.ArrayList;
 
 public class listTab extends Fragment{
     private View mView;
-    private ArrayList<String> VWOArrayList = new ArrayList<>();
+    private ArrayList<String> VWOArrayList;
     private ListView vwoListView;
-    DatabaseReference mVWORef = FirebaseDatabase.getInstance().getReference().child("VWO").child("id");
+    private ServerInterface DBInterface = ServerInterface.getINSTANCE();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         mView = inflater.inflate(R.layout.activity_listtab, container, false);
         vwoListView = (ListView) mView.findViewById(R.id.vwoList);
-        mVWORef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                VWOArrayList = new ArrayList<>();
-                for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()){
-                    if (VWOSnapshot.child("name").getValue(String.class) != null)
-                        VWOArrayList.add(VWOSnapshot.child("name").getValue(String.class));
-                }
-                ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,VWOArrayList);
-                vwoListView.setAdapter(vwoAdapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        VWOArrayList = DBInterface.getVWONames("name");
+        ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,VWOArrayList);
+        vwoListView.setAdapter(vwoAdapter);
         return mView;
     }
     @Override

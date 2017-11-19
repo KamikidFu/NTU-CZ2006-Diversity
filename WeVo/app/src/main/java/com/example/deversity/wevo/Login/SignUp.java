@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.deversity.wevo.Entity.Event;
 import com.example.deversity.wevo.Entity.Job;
+import com.example.deversity.wevo.Entity.ServerInterface;
 import com.example.deversity.wevo.Entity.VWO;
 import com.example.deversity.wevo.Entity.Volunteer;
 import com.example.deversity.wevo.ui.VWOView;
@@ -52,7 +53,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
     private Switch switchUserType;
     private FirebaseAuth firebaseAuth;
     private EditText editTextLocation;
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    private ServerInterface DBInterface = ServerInterface.getINSTANCE();
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -197,12 +198,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                                     startActivity(new Intent(getApplicationContext(), VolunteerView.class));
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                     if (user != null) {
-                                        // TODO: Change between VWO and Volunteer, add Name, remove Password, add description
                                         ArrayList<String> startingJob = new ArrayList<>();
                                         Volunteer newVolunteer = new Volunteer(name, user.getEmail(), "password", description, startingJob);
-                                        Map<String, Object> volunteerData = new HashMap<>();
-                                        volunteerData.put(user.getUid(), newVolunteer);
-                                        mRootRef.child("Vol").child("id").updateChildren(volunteerData);
+                                        DBInterface.SignUpAddToDb(user.getUid(), "Vol", newVolunteer);
                                     }
                                 }
                             } else {
@@ -232,9 +230,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                                     if (user != null) {
                                         ArrayList<Event> emptyEvent = new ArrayList<>();
                                         VWO newVWO = new VWO(name, user.getEmail(), "password", location, description, emptyEvent);
-                                        Map<String, Object> VWOData = new HashMap<>();
-                                        VWOData.put(user.getUid(), newVWO);
-                                        mRootRef.child("VWO").child("id").updateChildren(VWOData);
+                                        DBInterface.SignUpAddToDb(user.getUid(), "VWO", newVWO);
                                     }
 
                                 }

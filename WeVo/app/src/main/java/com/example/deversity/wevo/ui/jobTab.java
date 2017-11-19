@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.deversity.wevo.R;
+import com.example.deversity.wevo.mgr.VWOClientMgr;
+import com.example.deversity.wevo.mgr.VolunteerClientMgr;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +31,7 @@ public class jobTab extends Fragment{
     private View mView;
     private ArrayList<String> VWOArrayList = new ArrayList<>();
     private ListView vwoListView;
+    private VolunteerClientMgr usermgr = new VolunteerClientMgr();
     private FirebaseUser USER = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference mVWORef = FirebaseDatabase.getInstance().getReference().child("Vol").child("id").child(USER.getUid()).child("Events");
 
@@ -37,24 +40,9 @@ public class jobTab extends Fragment{
     {
         mView = inflater.inflate(R.layout.activity_listtab, container, false);
         vwoListView = (ListView) mView.findViewById(R.id.vwoList);
-        mVWORef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                VWOArrayList = new ArrayList<>();
-                for (DataSnapshot VWOSnapshot : dataSnapshot.getChildren()){
-                    Log.d("KEEYYYYYYYYSYSYYSYSYSY", "key:  " + dataSnapshot.getKey().toString() );
-                    if (VWOSnapshot.getValue(String.class) != null)
-                        VWOArrayList.add(VWOSnapshot.getValue(String.class));
-                }
-                ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,VWOArrayList);
-                vwoListView.setAdapter(vwoAdapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        VWOArrayList = usermgr.getVolEvents();
+        ListAdapter vwoAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,VWOArrayList);
+        vwoListView.setAdapter(vwoAdapter);
 
         return mView;
     }

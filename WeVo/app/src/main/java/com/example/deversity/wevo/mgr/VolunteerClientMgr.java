@@ -3,6 +3,7 @@ package com.example.deversity.wevo.mgr;
 import android.widget.ListView;
 
 import com.example.deversity.wevo.Entity.Event;
+import com.example.deversity.wevo.Entity.ServerInterface;
 import com.example.deversity.wevo.Entity.Volunteer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -29,6 +30,7 @@ public class VolunteerClientMgr {
     private Volunteer user;
     private ShowVWOMgr VWOMgr;
     private String pushId;
+    private ServerInterface DBInterface = ServerInterface.getINSTANCE();
 
 
 
@@ -57,23 +59,23 @@ public class VolunteerClientMgr {
     }
 
     public void SetDescriptionUSER(String newDescription){
-        mRootRef.child("Vol").child("id").child(USER.getUid()).child("description").setValue(newDescription);
+        DBInterface.setVolunteerDetails(USER.getUid(), newDescription, "description");
     }
+
     public void SetNameUSER(String newName) {
-        mRootRef.child("Vol").child("id").child(USER.getUid()).child("name").setValue(newName);
+        DBInterface.setVolunteerDetails(USER.getUid(), newName, "name");
+    }
+
+    public ArrayList<String> getVolunteerDetails(){
+        return DBInterface.getVWODetails(USER.getUid());
+    }
+
+    public ArrayList<String> getVolEvents(){
+        return DBInterface.getVolunteerEvent(USER.getUid());
     }
 
     public void LogOut(){
-        FirebaseAuth.getInstance().signOut();
-    }
-
-    public void applyJob(){
-        //TODO apply for a job, find the related job in firebase from the VWO. Then, add this volunteer to the Volunteer list
-
-    }
-
-    public void showJob(ListView listView){
-        //TODO Show the job reference which are in firebase
+        DBInterface.logOut();
     }
 
     public ShowVWOMgr getShowVWOMgr() {
