@@ -2,7 +2,7 @@
 
 This is a group project for CZ2006 - Software Engineering in [NTU](http://www.ntu.edu.sg/Pages/home.aspx).
 
-WeVo is an application to support local community connection and welfare. WeVo stands for `We` and `Voluntneer` so this is a platform of both charity or organisation and people who want to work some volunteering jobs. 
+WeVo is an application to support local community connection and welfare. WeVo stands for `We` and `Voluntneer` so this is a platform for both charity or organisation and people who want to work some volunteering jobs. 
 
 
 
